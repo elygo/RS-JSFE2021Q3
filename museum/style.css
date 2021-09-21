@@ -1,0 +1,13 @@
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+.container {
+    height: 842px;
+    width: 1440px;
+    margin: 0 auto;
+    border: 1px solid red;
+}
