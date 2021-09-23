@@ -41,10 +41,6 @@ a {
   .header-container {
     height: 150px;
     width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: rgb(0,0,0);    
   }
   
@@ -89,34 +85,43 @@ a {
     display: inline;
   }
 
+  .wrapper {
+    margin: 0 auto;
+    width: 1920px;
+  }
+.container {
+    margin: 0 auto;
+    width: 1440px;
+}
+
 .welcome {
+  position: relative;
+  height: 810px;
   background-color: rgb(0, 0, 0);
 }
 
-.welcome-container {
-    height: 842px;
-    width: 1440px;
-    margin: 0 auto;
-    background-color: rgb(0, 0, 0);  
+
+.welcome__title {
+  position: absolute;
+  height: 180px;
+  top: 150px;
+  color: rgb(255, 255, 255);
 }
 
 .section-title {
-  width: 600px;
-  height: 180px;
-  padding-top: 150px;
   font-family: Forum;
   font-style: normal;
   font-weight: 400;
   font-size: 80px;
   line-height: 90px;
   letter-spacing: 5px;
-  color: rgb(255, 255, 255);
 }
 
 .welcome__range {
+  position: absolute;
   width: 445px;
   height: 33px;
-  padding-top: 175px;
+  top: 355px;
 
   font-family: Roboto;
   font-style: normal;
@@ -128,11 +133,10 @@ a {
 }
 
 .welcome__button-discover {
+  position: absolute;
   width: 300px;
   height: 75px;
-  padding-left: 66px;
-  padding-top: 128px;
-  top: 0px;
+  top: 466px;
 
   font-family: Roboto;
   font-style: normal;
@@ -147,12 +151,96 @@ a {
 }
 
 .visiting {
+  position: relative;
+  height: 1266px;
   background-color: rgb(255, 255, 255);
 }
 
-.visiting-container {
-    height: 842px;
-    width: 1440px;
-    background-color: rgb(255, 255, 255);  
+.visiting__title {
+  position: absolute;
+  top: 53px;
+  width: 1440px;
+  color: #9D8665; 
+  border-bottom: 3px solid #710707;
+  border-radius: 0px;
+  line-height: 1.7;
 }
-  
+
+.explore {
+  position: relative;
+  height: 865px;
+  margin: 0 auto;
+  background-color: #000000;
+}
+
+.explore__title {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  top: 53px;
+  border-bottom: 3px solid #710707;
+  border-radius: 0px;
+  line-height: 1.7;
+}
+
+
+.video {
+  height: 1396px;
+  margin: 0 auto;
+}
+
+.video__title {
+  color: #9D8665;
+}
+
+.gallery {
+  height: 2200px;
+  margin: 0 auto;
+  background-color: #000000;
+}
+
+.gallery__title {
+  color: rgb(255, 255, 255);
+}
+
+.tickets {
+  position: relative;
+  height: 893px;
+  margin: 0 auto;
+}
+
+.tickets__title {
+  position: absolute;
+  top: 53px;
+  width: 1440px;
+  color: #9D8665;  
+  border-bottom: 3px solid #710707;
+  border-radius: 0px;
+  line-height: 1.7;
+}
+
+.parallax {
+  height: 400px;
+  border: 1px solid red;
+}
+
+.contacts {
+  position: relative;
+  height: 963px;
+  margin: 0 auto;
+}
+
+.contacts__title {
+  position: absolute;
+  top: 53px;
+  width: 1440px;
+  color: #9D8665;  
+  border-bottom: 3px solid #710707;
+  border-radius: 0px;
+  line-height: 1.7;
+}
+
+.footer {
+  height: 392px;
+  margin: 0 auto;
+  background-color: #000000;
+}
