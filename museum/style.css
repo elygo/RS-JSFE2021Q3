@@ -297,8 +297,40 @@ a {
   margin: 0 auto;
 }
 
+.video .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.video__title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 75px;
+}
+
 .video__title {
+  width: 720px;
+  height: 90px;
+  left: 0px;
+  top: 0px;
   color: #9D8665;
+}
+
+.video__text {
+  width: 720px;
+  height: 77px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 38px;
+}
+
+.video__container {
+  width: 1440px;
+  height: 650px;
 }
 
 .gallery {
@@ -309,6 +341,26 @@ a {
 
 .gallery__title {
   color: rgb(255, 255, 255);
+}
+
+.gallery__image-container {
+  display: flex;
+  flex-flow: column wrap;
+  row-gap: 15px;
+  column-gap: 20px;
+}
+
+.gallery__image-container:nth-child(n+1) { order: 1;  }
+.gallery__image-container:nth-child(n+2) { order: 2; }
+.gallery__image-container:nth-child(n)   { order: 3; }
+
+.gallery__image-container::before,
+.gallery__image-container::after {
+  padding-top: 50px;
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
 }
 
 .tickets {
