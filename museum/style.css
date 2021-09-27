@@ -364,6 +364,7 @@ a {
 .video .container {
   display: flex;
   flex-direction: column;
+  
 }
 
 .video__title-container {
@@ -372,6 +373,7 @@ a {
   justify-content: center;
   align-items: center;
   margin-top: 75px;
+  margin-bottom: 75px;
 }
 
 .video__title {
@@ -395,6 +397,18 @@ a {
 .video__container {
   width: 1440px;
   height: 650px;
+}
+
+video {
+  object-fit: inherit;
+  width: 1440px;
+  height: 735px; 
+}
+
+.video__slider {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
 }
 
 .gallery {
@@ -480,14 +494,88 @@ a {
 }
 
 .tickets__choice-container {
-  flex: 1;
+  flex:2;
   margin-top: 76px;
+}
+
+.tickets__form {
+  display: none;
+  width: 1440px;
+  height: 845px;
+  position:fixed; 
+  top: calc(50% - 422px);
+  left: calc(50% - 720px); 
+  background: #FFFFFF;
+  border: 1px solid red;
+  z-index: 10;
+}
+
+.form-container {
+  display: flex;
+  margin: 91px 235px;
+  gap: 40px
+}
+
+.tickets__fill-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 663px;
+}
+
+.fill-form__title {
+  font-family: Forum;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 55px;
+  text-transform: uppercase;
+  color: #9D8665;
+}
+
+.fill-form__subtitle {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  color: #710707;
+
+  border-bottom: 3px solid #710707;
+}
+
+.tickets__overview-form {
+  display: flex;
+  flex-direction: column;
+  width: 530px;
+  height: 663px;
+  border: 1px solid #000000;
+}
+
+.choice-container__title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 33px;
+  margin-bottom: 38px;
+  margin-left: 60px;
+}
+
+.choice-container__option {
+  margin-left: 60px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 50px;
 }
 
 .tickets__amount-container {
   flex: 1;
   margin-top: 76px;
 }
+
 .tickets__number {
   all: unset;
   width: 100px;

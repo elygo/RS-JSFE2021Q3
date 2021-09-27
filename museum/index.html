@@ -120,7 +120,21 @@
                     <p class="video__text">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
                 </div>
                 <div class="video__container">
-                    <video  poster="assets/video/poster0.jpg" width="1440" height="650"></video>
+                    <video src="https://www.youtube.com/embed/zp1BXPX8jcU" poster="./assets/video/poster0.jpg">
+                        <input type="button" value="Click">
+                        <input type="button" value="">
+                        <input type="range" name="" id="">
+                        <input type="button" value="">
+                        <input type="range" name="" id="">
+                        <input type="button" value="">
+                    </video>
+                    
+                    <div class="video__slider">
+                        <iframe width="452" height="254" src="https://www.youtube.com/embed/aWmJ5DgyWPI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -151,28 +165,59 @@
                 <div class="tickets__inner-container">
                     <div class="tickets__image-container"></div>
                     <div class="tickets__choice-container">
-                        <p>Custom Radio Buttons</p>
-                    <label class="container">One
-                        <input type="radio" checked="checked" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">Two
-                        <input type="radio" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">Three
-                        <input type="radio" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
+                        <p class="choice-container__title">Ticket Type</p>
+                        <label class="choice-container__option">
+                            <input type="radio" checked="checked" name="radio">
+                            <span class="checkmark"></span>Permanent exhibition
+                        </label><br>
+                        <label class="choice-container__option">
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>Temporary exhibition
+                        </label><br>
+                        <label class="choice-container__option">
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>Combined Admission
+                        </label>
                     </div>
                     <div class="tickets__amount-container">
-                        <button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
-                        <input type="number" min="0" max="20" value="1" readonly class="tickets__number">
-                        <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+                        <p class="choice-container__title">Amount</p>
+                        <label>Basic 18+
+                            <button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
+                            <input type="number" min="0" max="20" value="1" readonly class="tickets__number">
+                            <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+                        </label>
+                       
                         <br>
-                        <button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
-                        <input type="number" min="0" max="20" value="1" readonly class="tickets__number">
-                        <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+                        <label>Senior 65+   
+                            <button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
+                            <input type="number" min="0" max="20" value="1" readonly class="tickets__number">
+                            <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+                        </label>
+                        <button class="tickets__buynow" onclick="openForm()">Buy Now</button>
+
+                        <div class="tickets__form" id="tickets__form">
+                            <form action="#" class="form-container">
+                                <div class="tickets__fill-form">
+                                    <h4 class="fill-form__title">Booking Tickets</h4>
+                                    <h5 class="fill-form__subtitle">Tour To Louvre</h5>    
+                                    <div>                                        
+                                        <input type="date" placeholder="Date" name="date" required>
+                                        <input type="time" placeholder="Time" name="time" required>
+                                    </div>                            
+                                    <input type="text" placeholder="Name" name="name" required>
+                                    <input type="email" name="email" id="email" required>
+                                    <input type="tel" name="phone" id="phone">
+                                    <input type= name="ticket" id="">                                
+                                </div>
+                                <div class="tickets__overview-form">                                    
+                                    <button type="submit" class="btn">Book</button>
+                                </div>
+
+                              
+                              
+                            </form>
+                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                          </div>
                     </div>
                     
                 </div>
@@ -234,5 +279,7 @@
         </div>
         <span class="footer__line"></span>
     </footer>
+
+    <script src="./index.js"></script>
 </body>
 </html>
