@@ -1,13 +1,17 @@
-import './style.css';
-
-function openForm() {
-    document.getElementById("tickets__form").style.display = "block";
-    document.getElementById("cover").style.display = "block";
+import './style.scss';
+document.getElementById('tickets__buynow').onclick = function openForm() {
+  document.getElementById("tickets__form").style.display = "block";
+  document.getElementById("cover").style.display = "block";
 }
-  
-function closeForm() {
+
+document.getElementById('cover').onclick =  function closeForm() {
     document.getElementById("tickets__form").style.display = "none";
     document.getElementById("cover").style.display = "none";
+}
+
+document.getElementById('closeButton').onclick =  function closeForm() {
+  document.getElementById("tickets__form").style.display = "none";
+  document.getElementById("cover").style.display = "none";
 }
 
 

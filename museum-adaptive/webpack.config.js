@@ -55,23 +55,20 @@ module.exports = {
                 test: /\.css$/i,
                 use: [ 
                     'style-loader',
-                    'css-loader?url=false',
+                    'css-loader',
                 ]
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [  
                     {
-                        loader: "style-loader",
+                        loader: "style-loader"
                       },
                       {
-                        loader: "css-loader",
+                        loader: "css-loader?url=false"
                       },
                       {
-                        loader: "sass-loader",
-                        options: {
-                            
-                        },
+                        loader: "sass-loader"
                       }
                     ]
             },

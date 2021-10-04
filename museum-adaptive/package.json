@@ -26,7 +26,6 @@
     "html-webpack-plugin": "^4.5.0",
     "less": "^3.12.2",
     "less-loader": "^7.1.0",
-    "node-sass": "^5.0.0",
     "postcss-loader": "^4.1.0",
     "prettier": "2.2.1",
     "resolve-url-loader": "^4.0.0",
@@ -38,6 +37,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1"
+    "@babel/polyfill": "^7.12.1",
+    "node-sass": "^4.14.1"
   }
 }
