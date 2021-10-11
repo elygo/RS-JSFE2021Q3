@@ -9,6 +9,9 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
+    <script src="./index.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
 </head>
 <body>
     <header class="header">
@@ -42,20 +45,60 @@
     </header>
     <main>
         <section class="welcome">
+
+            <script>
+                let slideNo = 1;
+                slideShow(slideNo);
+                
+                // Next/previous controls
+                function slideAdd(n) {
+                    slideShow(slideNo += n);
+                }
+                
+                // Thumbnail image controls
+                function slideNow(n) {
+                    slideShow(slideNo = n);
+                }
+                
+                function slideShow(n) {
+                    let i;
+                    let slides = document.getElementsByClassName("pict");
+                    let dots = document.getElementsByClassName("slider__rectangle--white");
+                    
+                    if (n > slides.length) {slideNo = 1}
+                    if (n < 1) {slideNo = slides.length}
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+
+                    slides[slideNo-1].style.display = "block";
+                    dots[slideNo-1].className += " active";
+                }
+                
+            </script>
             <div class="container">
                 <h2 class="welcome__title section-title">WELCOME<br> TO THE LOUVRE</h2>
                 <p class="welcome__range">From the castle to the museum</p>>
                 <a href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736" class="welcome__button-discover">Discover the Louvre</a>
-                <div class="welcome__welcome-bgi"></div>
+                <div class="pict welcome__welcome-bgi"></div>
+                <div class="pict welcome__welcome-bgi2"></div>
+                <div class="pict welcome__welcome-bgi3"></div>
+                <div class="pict welcome__welcome-bgi4"></div>
+                <div class="pict welcome__welcome-bgi5"></div>
+
+
                 <div class="welcome__welcome-slider">
                     <p class="welcome__slider--counter">01 | 05</p>
-                    <span class="slider__rectangle--yellow"></span>
-                    <span class="slider__rectangle--white"></span>
-                    <span class="slider__rectangle--white"></span>
-                    <span class="slider__rectangle--white"></span>
-                    <span class="slider__rectangle--white"></span>
-                    <span class="slider__arrow"></span>
-                    <span class="slider__arrow--rotated"></span>
+                    <span class="slider__rectangle--white" onclick="slideNow(1)"></span>
+                    <span class="slider__rectangle--white" onclick="slideNow(2)"></span>
+                    <span class="slider__rectangle--white" onclick="slideNow(3)"></span>
+                    <span class="slider__rectangle--white" onclick="slideNow(4)"></span>
+                    <span class="slider__rectangle--white active" onclick="slideNow(5)"></span>
+                    <span class="slider__arrow"  onclick="slideAdd(-1)"></span>
+                    <span class="slider__arrow--rotated"  onclick="slideAdd(1)"></span>
                 </div>
             </div>
         </section>
@@ -120,7 +163,7 @@
                 <div class="explore__image-container">
                     <img src="./assets/img/explore-slider/before_cut.png" alt="image-before" class="explore__image-container--before">
                     <img src="./assets/img/explore-slider/after.jpg" alt="image-after" class="explore__image-container--after">
-                    <img src="./assets/img/explore-slider/explore_slider.png" alt="image-slider" class="explore-slider">
+                    <input id="image-comparison-slider" type="range" />
                 </div>
             </div>
         </section>
@@ -162,7 +205,7 @@
                         max = Math.floor(max);
                         return Math.floor(Math.random() * (max - min)) + min; // The maximum is exclusive and the minimum is inclusive
                         }
-                        for(var i = 0; i < 11; i++) {
+                        for(let i = 0; i < 11; i++) {
                             document.write('<img src="./assets/img/galery/galery' + getRandomInt(1, 12) + '.jpg" alt="image">');
                         }
                     </script>
@@ -179,24 +222,24 @@
                     <div class="tickets__choice-container">
                         <p class="choice-container__title">Ticket Type</p>
                         <label class="choice-container__option">
-                            <input type="radio" checked="checked" name="radio">
+                            <input type="radio" checked="checked" name="radio" value="20">
                             <span class="checkmark"></span>Permanent exhibition
                         </label><br>
                         <label class="choice-container__option">
-                            <input type="radio" name="radio">
+                            <input type="radio" name="radio" value="25" >
                             <span class="checkmark"></span>Temporary exhibition
                         </label><br>
                         <label class="choice-container__option">
-                            <input type="radio" name="radio">
+                            <input type="radio" name="radio" value="40" onclick="handleClick(this)">
                             <span class="checkmark"></span>Combined Admission
                         </label>
                     </div>
-                    <div class="tickets__amount-container">
+                    <div class="tickets__amount-container" id="tickets__amount">
                         <p class="choice-container__title">Amount</p>
                         <label class="choice-container__group-title">Basic 18+</label>
                         <div class="choice-container__group">
                             <button type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-                            <input type="number" min="0" max="20" value="1" readonly class="tickets__number">
+                            <input type="number" min="0" max="20" value="1" class="tickets__number">
                             <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                         </div>
                         <label>Senior 65+</label>
@@ -206,7 +249,19 @@
                             <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                         </div>
                         <br>
-                        <p class="choice-container__title">Total € 220</p>
+                        <p class="choice-container__title">Total € <span id="result"></span>
+                            <!-- <script>
+                                (function () {
+                                    let ticketPrice = document.querySelector('input[name = radio]:checked').this.value;
+                                    let basicNum = document.getElementsByClassName('tickets__number')[0].value;
+
+
+                                    result.innerHTML = ticketPrice * basicNum;
+
+                                    console.log(ticketPrice);
+                                })();
+                            </script> -->
+                        </p>
                         <button class="tickets__buynow" id="tickets__buynow">Buy Now</button>
                         <div id="cover"></div>
                         <div class="tickets__form" id="tickets__form" >
@@ -265,7 +320,7 @@
                             <li><a href="mailto:info@louvre.fr">mail: info@louvre.fr</a></li>
                         </ul>
                     </div>
-                    <div class="contacts__map"></div>
+                    <div class="contacts__map" id="map"></div>
                 </div>
                 
             </div>

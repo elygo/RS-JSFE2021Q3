@@ -1,7 +1,7 @@
 {
   "name": "museum-adaptive",
   "version": "1.0.0",
-  "description": "RS SCHOOL Museum-adapative",
+  "description": "RS SCHOOL Museum-dom",
   "main": "index.js",
   "scripts": {
     "dev": "npx webpack --mode development",

@@ -167,7 +167,6 @@ a {
     }
 }
 
-
   &__welcome-bgi {
     position: absolute;
     width: 1000px;
@@ -176,6 +175,50 @@ a {
     top: 0px;
     z-index: 0;
     background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%), url("./assets/img/welcome-slider/1.jpg");
+    background-repeat: no-repeat;
+  }
+
+  &__welcome-bgi2 {
+    position: absolute;
+    width: 1000px;
+    height: 750px;
+    right: 0px;
+    top: 0px;
+    z-index: 0;
+    background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%), url("./assets/img/welcome-slider/2.jpg");
+    background-repeat: no-repeat;
+  }
+
+  &__welcome-bgi3 {
+    position: absolute;
+    width: 1000px;
+    height: 750px;
+    right: 0px;
+    top: 0px;
+    z-index: 0;
+    background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%), url("./assets/img/welcome-slider/3.jpg");
+    background-repeat: no-repeat;
+  }
+
+  &__welcome-bgi4 {
+    position: absolute;
+    width: 1000px;
+    height: 750px;
+    right: 0px;
+    top: 0px;
+    z-index: 0;
+    background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%), url("./assets/img/welcome-slider/4.jpg");
+    background-repeat: no-repeat;
+  }
+
+  &__welcome-bgi5 {
+    position: absolute;
+    width: 1000px;
+    height: 750px;
+    right: 0px;
+    top: 0px;
+    z-index: 0;
+    background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%), url("./assets/img/welcome-slider/5.jpg");
     background-repeat: no-repeat;
   }
 
@@ -234,6 +277,10 @@ a {
   width: 16px;
   height: 16px;
   background: #ffffff;
+}
+
+.active, .slider__rectangle--white:hover {
+  background-color: #D2B183;
 }
 
 .slider__arrow {
@@ -376,6 +423,12 @@ a {
       top: 0;
       left: 0;
     }
+
+    // .image-comparison-slider {
+    //   z-index: 1;
+    //   background: url("./assets/img/explore-slider/explore_slider.png");
+    //   background-repeat: no-repeat;
+    // }
   }
 
   &-slider {
