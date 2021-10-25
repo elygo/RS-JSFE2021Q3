@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <title>momentum</title>
+</head>
+<body>
+  <header class="header">    
+    <div class="player">
+      <div class="player-controls">
+        <button class="play-prev player-icon"></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"></button>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+      <input type="button" value="en" class="lang player-icon">
+    <div class="weather">
+      <input type="text" class="city" />
+      <i class="weather-icon"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" />
+    </div>
+  </main>
+  <div class="settings-button"></div>
+  <div class="settings-container">    
+    <input type="checkbox" id="input1" checked/>
+      <label for="1">
+        <span>Time</span>
+      </label><br>
+    <input type="checkbox" id="input2" checked>
+      <label for="2">
+        <span>Date</span>
+      </label><br>
+      <input type="checkbox" id="input3" checked>
+      <label for="3">
+        <span>Greetings</span>
+      </label><br>
+    <input type="checkbox" id="input4" checked>
+      <label for="4">
+        <span>Quote</span>
+      </label><br>
+      <input type="checkbox" id="input5" checked>
+      <label for="5">
+        <span>Weather</span>
+      </label><br>
+      <input type="checkbox" id="input6" checked>
+      <label for="6">
+        <span>AudioPlayer</span>
+      </label><br>
+    <input type="checkbox" id="input7" checked>
+      <label for="7">
+        <span>LangSwitcher</span>
+      </label><br>
+      <input type="checkbox" id="input8">
+      <label for="8">
+        <span>UnsplashAPI</span>
+      </label>
+  </div>
+  <footer class="footer">    
+    <button class="change-quote"></button>
+    <div>
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+  </footer>
+<script src="bundle.7f60e1d95f98a244124b.js"></script><script src="bundle.3b924a329bb8529474ae.js"></script></body>
+</html>
