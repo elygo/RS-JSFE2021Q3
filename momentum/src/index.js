@@ -14,8 +14,8 @@ const date = document.querySelector(".date"),
   humidity = document.querySelector('.humidity'),
   wind = document.querySelector('.wind'),
 
-  // prevSlide = document.querySelector('.slide-prev'),
-  // nextSlide = document.querySelector('.slide-next'),
+  prevSlide = document.querySelector('.slide-prev'),
+  nextSlide = document.querySelector('.slide-next'),
 
   quote = document.querySelector(".quote"),
   author = document.querySelector(".author"),
@@ -136,6 +136,68 @@ async function setWeather(){
   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
 }
 
+  let imgArray = [];
+  while (imgArray.length < 21) {
+    var r = Math.floor(Math.random() * 20) + 1;
+    if (imgArray.indexOf(r) === -1 && r !== 0) {
+      if (r.toString().length === 2) {
+        imgArray.push(r.toString());
+      } else {
+        r = "0" + r;
+        imgArray.push(r);
+      }
+    }
+  }
+  let dayTime = "";
+  let togetHour = new Date(),
+    hour = togetHour.getHours(),
+    counter = hour + 1;
+
+function setprevBgimage () {
+  const url = 'https://raw.githubusercontent.com/elygo/stage1-tasks/assets/images/';
+    if (counter <= 1) {
+    counter = 20;
+  }
+
+  if (hour < 6) {
+    dayTime = "night";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else if (hour < 12) {
+    dayTime = "morning";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else if (hour < 18) {
+    dayTime = "afternoon";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else {
+    dayTime = "evening";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  }
+  counter = counter - 1;
+}
+
+function setnextBgimage () {
+  const url = 'https://raw.githubusercontent.com/elygo/stage1-tasks/assets/images/';
+
+  if (counter >= 20) {
+    counter = 0;
+  }
+
+  if (hour < 6) {
+    dayTime = "night";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else if (hour < 12) {
+    dayTime = "morning";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else if (hour < 18) {
+    dayTime = "afternoon";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  } else {
+    dayTime = "evening";
+    document.body.style.backgroundImage = "url(" + url + dayTime + "/" + imgArray[counter] + ".jpg)";
+  }
+  counter = counter + 1;
+}
+
 function changeQuote(){
     fetch("https://type.fit/api/quotes")
     .then(response => response.json())
@@ -152,6 +214,8 @@ function changeQuote(){
 buttonQuote.addEventListener('click', changeQuote);
 name.addEventListener('keypress', setName);
 city.addEventListener('keypress', setCity);
+prevSlide.addEventListener('click', setprevBgimage);
+nextSlide.addEventListener('click', setnextBgimage);
 
 //callFunctions
 showTime();
