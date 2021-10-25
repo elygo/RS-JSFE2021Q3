@@ -250,7 +250,28 @@
     min-height: 160px;  
     padding: 20px;
   }
+
+  .settings-container {
+    border:1px solid #5f5454;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    text-align: left;
+    line-height: 1.5;
+  }
   
+  .settings-button {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    color: #ffffff;
+    background-image: url("./assets/svg/tools.svg");
+  }
+
   .change-quote {
     margin-bottom: 30px;
     background-image: url("./assets/svg/reload.svg");  
@@ -262,6 +283,12 @@
   
   .author {
     min-height: 20px;
+  }
+
+  .lang {
+    border-radius: 50%;
+    border: 3px solid white;
+    color: white;
   }
   
   @media (max-width: 768px) {
