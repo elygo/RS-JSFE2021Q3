@@ -1,6 +1,72 @@
 @import url('http://fonts.cdnfonts.com/css/gilroy');
-* {
+* { 
+    margin: 0 auto;
+    padding: 0;
     font-family: Gilroy;
     font-style: normal;
     font-weight: 500;
+    background-color: #000;  
+}
+
+.section, .categories, .settings {
+    width: 1440px;
+    height: 1024px;
+    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn {
+    justify-content: center;
+    align-items: center;
+    padding: 20px 60px;
+    
+    position: relative;
+    width: 251px;
+    height: 62px;
+
+    border: 1.5px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 60px;
+}
+
+.btn:hover {
+    justify-content: center;
+    align-items: center;
+    padding: 20px 60px;
+    
+    position: relative;
+    width: 251px;
+    height: 62px;
+    background: #FFFFFF;
+    border: 1.5px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 60px;
+}
+
+.btn:active {
+    justify-content: center;
+    align-items: center;
+    padding: 20px 60px;
+    
+    position: relative;
+    width: 251px;
+    height: 62px;
+    background: #FFBCA2;
+    border: 1.5px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 60px;
+}
+
+.btn-settings {
+    background: url(../assets/img/carbon_settings.png) no-repeat;
+    height: 140px;
+    width: 140px;
+}
+
+.logo {
+    background: url(../assets/img/rs_school_js.jpg) no-repeat;
+    width: 200px;
+    height: 300px   ;
 }
