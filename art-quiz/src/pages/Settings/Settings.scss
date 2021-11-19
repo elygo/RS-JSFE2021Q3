@@ -1,0 +1,55 @@
+.settings {
+    width: 1440px;
+    height: 1024px;
+    display: flex;
+    flex-direction: column;
+
+    &__volume {
+        margin-top: 132px;
+        width: 492px;
+        height: 140px;
+
+        &-title {
+            font-weight: bold;
+            font-size: 34px;
+            line-height: 28px;
+            letter-spacing: -0.914286px;
+            color: #FFFFFF;
+        }
+    }
+
+    &__timegame {
+        margin-top: 80px;
+        width: 168px;
+        height: 96px;
+
+        &-title {
+            font-weight: bold;
+            font-size: 34px;
+            line-height: 28px;
+            letter-spacing: -0.914286px;
+            color: #FFFFFF;
+        }
+    }
+
+    &__timeanswer {
+        margin-top: 80px;
+        width: 227px;
+        height: 104px;
+
+        &-title {
+            font-weight: bold;
+            font-size: 34px;
+            line-height: 28px;
+            letter-spacing: -0.914286px;
+            color: #FFFFFF;
+        }
+    }
+
+    &__btn {
+        margin-top: 122px;
+        margin-left: 787px;
+        width: 582px;
+        height: 62px;
+    }
+}

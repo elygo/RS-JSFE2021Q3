@@ -44,10 +44,15 @@ module.exports = (env, options) => {
             'sass-loader',
           ],
         }, {
-          test: /\.(png|svg|jpe?g|gif|ttf)$/,
-          use: {
-            loader: 'file-loader',
-          },
+          test: /\.(ttf)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: false,
+              },
+            },
+          ],
         }, {
           test: /\.html$/,
           use: {
@@ -69,6 +74,14 @@ module.exports = (env, options) => {
       isProduction
         ? new CopyWebpackPlugin({ patterns: [{ from: './src/static', to: '.' }] })
         : nothing,
+      new CopyWebpackPlugin({
+          patterns: [
+              {
+                  from: path.resolve(__dirname, './src/assets/'),
+                  to: path.resolve(__dirname, './build/assets')
+              }
+          ]
+      }),
     ],
   };
 };
