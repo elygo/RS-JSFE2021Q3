@@ -42,10 +42,11 @@ const questions = {
 };
 
 const pageCategories = questions['questionsByAuthor'];
-
 const categoriesToRender = pageCategories.map(pageCategory => {
-  return;
+  return pageCategory;
 });
+
+console.log(CategoriesElement);
 
 export class Categories {
   constructor() {};

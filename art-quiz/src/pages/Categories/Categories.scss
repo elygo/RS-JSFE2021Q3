@@ -1,7 +1,68 @@
 .categories {
     width: 1440px;
     height: 1024px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
 
+    &__link {
+        display: flex;        
+        justify-content: space-between;
+        align-items: center;
+        width: 1301px;
+        height: 62px;
+        margin-top: 30px;
+        margin-left: 70px;
+
+        &-logo {
+            width: 166px;
+            height: 62px;
+            background: url(../assets/svg/logo-circles.svg) no-repeat;
+            margin: 0;
+
+            &-title {                
+                margin-left: 13px;
+                display: inline-flex;
+                font-weight: bold;
+                font-size: 42px;
+                line-height: 60px;
+                text-align: center;
+                letter-spacing: -0.914286px;
+                color: #FFBCA2;
+            }
+        }
+        
+
+        &-pages {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 120px;
+            width: 257px;
+            height: 18px;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 18px;
+            letter-spacing: -0.5px;
+
+            a:nth-child(1), a:nth-child(2){
+                display: inline-flex;
+                align-items: center;
+                text-decoration: none;
+                color: #FFFFFF;
+                margin: 0;
+            }
+
+            a:active {
+                color: #FFBCA2;
+            }
+        }
+        
+
+        &-settings {
+            background: url(../assets/img/carbon_settings.png) no-repeat ;
+            width: 36px;
+            height: 36px;
+            margin: 0;
+        }
+    }
 }

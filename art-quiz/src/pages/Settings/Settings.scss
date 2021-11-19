@@ -4,22 +4,69 @@
     display: flex;
     flex-direction: column;
 
+    &__link {
+        display: flex;        
+        justify-content: space-between;
+        width: 1299px;
+        height: 36px;
+        margin-top: 43px;
+        margin-left: 70px;
+
+        a:nth-child(1) {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #FFFFFF;
+            margin: 0;
+        }
+        a:nth-child(2) {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #FFFFFF;
+            margin: 0;
+        }
+        
+        &-back {
+            background: url(../assets/svg/eva_arrow-ios-back-fill.svg) no-repeat ;
+            width: 34px;
+            height: 34px;
+        }
+
+        &-close {
+            background: url(../assets/svg/eva_close-outline.svg) no-repeat ;
+            width: 34px;
+            height: 34px;
+        }
+    }
+
     &__volume {
-        margin-top: 132px;
+        display: flex;
+        flex-direction: column;
         width: 492px;
         height: 140px;
+        margin-top: 132px;
+        margin-left: 105px;
 
         &-title {
+            margin: 0;
             font-weight: bold;
             font-size: 34px;
             line-height: 28px;
             letter-spacing: -0.914286px;
             color: #FFFFFF;
         }
+
+        &-range {
+            margin: 0px;
+            width: 492px;
+            height: 72px;
+        }
     }
 
     &__timegame {
         margin-top: 80px;
+        margin-left: 105px;
         width: 168px;
         height: 96px;
 
@@ -34,6 +81,7 @@
 
     &__timeanswer {
         margin-top: 80px;
+        margin-left: 105px;
         width: 227px;
         height: 104px;
 
