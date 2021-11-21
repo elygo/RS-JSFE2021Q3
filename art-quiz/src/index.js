@@ -3,7 +3,9 @@
 import './styles/style.scss';
 
 import { Home } from './pages/Home';
-import { Categories } from './pages/Categories';
+import { CategoriesArtists } from './pages/CategoriesArtists';
+import { CategoriesPictures } from './pages/CategoriesPictures';
+import { Round } from './pages/Round';
 import { Settings } from './pages/Settings';
 import { Error404 } from './pages/Error404';
 
@@ -14,16 +16,19 @@ import { Utils } from './utils/Utils';
 
 const homeInstance = new Home();
 const settingsSettings = new Settings();
-const categoriesInstance = new Categories();
+const categoriesArtistsInstance = new CategoriesArtists();
+const categoriesPicturesInstance = new CategoriesPictures();
+const RoundInstance = new Round();
 const error404Instance = new Error404();
 
 const headerInstance = new Header();
 const footerInstance = new Footer();
-
 const routes = {
   '/': homeInstance,
   '/settings': settingsSettings,
-  '/categories': categoriesInstance,
+  '/categoriesartists': categoriesArtistsInstance,
+  '/categoriespictures': categoriesPicturesInstance,
+  '/round': RoundInstance
 };
 
 const router = async () => {

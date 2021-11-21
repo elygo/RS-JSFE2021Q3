@@ -1,0 +1,1 @@
+export { CategoriesArtists } from './CategoriesArtists';
