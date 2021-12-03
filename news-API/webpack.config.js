@@ -14,10 +14,15 @@ const baseConfig = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.ts?$/,
+                test: /\.[tj]s?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.svg$/,
+                type: 'asset',
+                use: 'svgo-loader'
+            }
         ],
     },
     resolve: {
@@ -35,6 +40,9 @@ const baseConfig = {
         new CleanWebpackPlugin(),
         new ESLintPlugin({ extensions: ['ts', 'js'] }),
     ],
+    experiments: {
+        asset: true
+    }
 };
 
 module.exports = ({ mode }) => {
