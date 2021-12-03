@@ -11,19 +11,19 @@ export interface Isource {
 }
 class Sources {
     draw(data: Isource[]) {
-        const fragment = document.createDocumentFragment();
+        const fragment = document.createDocumentFragment() as DocumentFragment;
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
         data.forEach((item) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLTemplateElement;
 
-            sourceClone.querySelector('.source__item-name')!.textContent = item.name;
-            sourceClone.querySelector('.source__item')?.setAttribute('data-source-id', item.id);
+            (sourceClone.querySelector('.source__item-name') as HTMLElement).textContent = item.name;
+            (sourceClone.querySelector('.source__item') as HTMLElement).setAttribute('data-source-id', item.id);
 
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources')?.append(fragment);
+        (document.querySelector('.sources') as HTMLElement).append(fragment);
     }
 }
 
