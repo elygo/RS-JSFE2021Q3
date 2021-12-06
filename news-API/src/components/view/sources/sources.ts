@@ -10,11 +10,11 @@ export interface Isource {
     url: string;
 }
 class Sources {
-    draw(data: Isource[]) {
+    public draw(data: Isource[]): void {
         const fragment = document.createDocumentFragment() as DocumentFragment;
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
-        data.forEach((item) => {
+        data.forEach((item: Isource) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLTemplateElement;
 
             (sourceClone.querySelector('.source__item-name') as HTMLElement).textContent = item.name;

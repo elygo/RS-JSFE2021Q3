@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { IDrawNews, IDrawSources } from '../view/appView';
 import AppLoader from './appLoader';
-
 class AppController extends AppLoader {
-    getSources(callback: (data?: { status: string; sources: [] }) => void) {
+    public getSources(callback: (data?: IDrawSources) => void) {
         super.getResp(
             {
                 endpoint: 'sources',
+                options: {},
             },
             callback
         );
     }
 
-    getNews(e: Event, callback: (data?: { status: string; totalResults: number; articles: [] }) => void) {
+    public getNews(e: Event, callback: (data?: IDrawNews) => void) {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
