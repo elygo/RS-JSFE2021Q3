@@ -13,7 +13,7 @@ class Sources {
     public draw(data: Isource[]): void {
         const fragment = document.createDocumentFragment() as DocumentFragment;
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
-        let c, button;
+        let c: string, button: HTMLElement;
         if ((document.querySelector('.alphabet') as HTMLElement).innerHTML == '') {
             for (let i = 65; 90 >= i; i++) {
                 c = String.fromCharCode(i);
