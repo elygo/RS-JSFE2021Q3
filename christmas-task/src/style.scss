@@ -1,0 +1,33 @@
+@import './components/header.scss';
+@import './components/footer.scss';
+
+@import './pages/home.scss';
+
+@font-face {
+    font-family: 'Neucha';
+    src: url('./assets/fonts/Neucha-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: 'Steppe';
+    src: url('./assets/fonts/Steppe-Regular 400.otf'); 
+}
+
+html, body { 
+    height: 100%;
+    font-family: 'Neucha';
+}
+body {
+    margin: auto 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background: url('./assets/bg.jpg') no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    color: green;
+}

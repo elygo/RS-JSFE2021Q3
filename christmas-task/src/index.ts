@@ -1,4 +1,4 @@
-import './style.css';
+import './style.scss';
 import ErrorPage from './pages/error';
 
 import Header from './components/header';

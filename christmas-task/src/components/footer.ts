@@ -4,8 +4,9 @@ const Footer = {
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
-                   Developed by Elyor Farmonov (RSSchool) 2021
+                   Developed by Elyor Farmonov
                 </p>
+                <div class="logo"></div>
             </div>
         </footer>
         `;
