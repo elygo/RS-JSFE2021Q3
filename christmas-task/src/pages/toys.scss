@@ -1,0 +1,104 @@
+.toys {
+    background: rgba(22, 41, 41, 0.5);
+    backdrop-filter: blur(3px);
+    color: #fff;
+    height: 100%;
+    min-height: calc(100vh - 140px);
+    width: 100%;
+    &__filter {
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 95vw;
+        max-width: 1600px;
+        font-size: 20px;
+        line-height: 40px;
+
+        &-quantity, &-range, &-sort {
+            width: 20vw;
+            height: 30vh;
+            padding: 1vh 2vw;
+            border: 1px solid #278D9F;
+            border-radius: 10px;
+            background-color: rgba(31, 112, 127, .3);
+            backdrop-filter: blur(6px);
+        }
+    }
+
+    &__items {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 95vw;
+        max-width: 1600px;
+        &-item {   
+            display: flex;
+            flex-wrap: wrap;         
+            justify-content: space-around;
+            width: 300px;
+            height: 300px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #278D9F;
+            background-color: rgba(31, 112, 127, .3);
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+    }
+}
+
+.item-title {
+    width: 100%;
+    font-size: 20px;
+    font-stretch: condensed;
+}
+
+.item-img {
+    width: 90px;
+    height: 112px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.item-description {
+    margin-top: -20px;
+    padding-left: 10px;
+    pointer-events: none;
+    line-height: 1;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.item-ribbon {
+    position: absolute;
+    top: 210px;
+    width: 80px;
+    height: 40px;
+    background: #24C5DB;
+    left: -8px;
+}
+
+.item-ribbon:before {
+    border-bottom: 8px solid #14455b;
+    border-left: 8px solid transparent;
+    top: -8px;
+}
+
+.item-ribbon:after {
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 15px solid #24C5DB;
+    right: -15px;
+}
+
+.item-ribbon::before, .item-ribbon::after {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+}
