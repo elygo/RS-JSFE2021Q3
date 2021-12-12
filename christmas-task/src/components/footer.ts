@@ -3,10 +3,10 @@ const Footer = {
         return `
         <footer class="footer">
             <div class="content has-text-centered">
-                <p>
+                <a href="https://github.com/elygo">
                    Developed by Elyor Farmonov
-                </p>
-                <div class="logo"></div>
+                </a>
+                <a href="https://rs.school/"><div class="logo"></div></a>
             </div>
         </footer>
         `;
