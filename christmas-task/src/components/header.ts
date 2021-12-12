@@ -2,7 +2,6 @@ const Header = {
     render: async () => {
         return `
              <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="container">
                     <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
                         <div class="navbar-start">
                             <a class="navbar-item" href="/#/">
@@ -16,7 +15,6 @@ const Header = {
                             </a>
                         </div>
                     </div>
-                </div>
             </nav>
         `;
     },
