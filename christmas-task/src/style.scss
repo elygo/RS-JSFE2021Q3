@@ -2,6 +2,7 @@
 @import './components/footer.scss';
 
 @import './pages/home.scss';
+@import './pages/toys.scss';
 
 @font-face {
     font-family: 'Neucha';
@@ -14,7 +15,8 @@
 }
 
 html, body { 
-    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     font-family: 'Neucha';
 }
 body {
@@ -26,8 +28,16 @@ body {
     height: 100vh;
     background: url('./assets/bg.jpg') no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
+.container {
+    min-width: 100%;
+    min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
 h1 {
     color: green;
 }
