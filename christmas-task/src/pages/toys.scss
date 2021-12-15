@@ -16,14 +16,18 @@
         font-size: 20px;
         line-height: 40px;
 
-        &-quantity, &-range, &-sort {
-            width: 20vw;
-            height: 30vh;
-            padding: 1vh 2vw;
+        &-value, &-range, &-sort {
+            width: 25vw;
+            height: 35vh;
+            padding: 1vh 1vw;
             border: 1px solid #278D9F;
             border-radius: 10px;
             background-color: rgba(31, 112, 127, .3);
             backdrop-filter: blur(6px);
+        }
+
+        &-title {
+            color: #fff;
         }
     }
 
@@ -102,3 +106,44 @@
     height: 0;
     width: 0;
 }
+
+.toys__filter-value--shape button {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        margin: 10px 7px;
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        cursor: pointer;
+        transition: .3s;
+}
+
+.toys__filter-value--shape button:nth-child(2) {
+    background-image: url(../assets/svg/ball.svg);
+    margin-left: 20px;
+}
+
+.toys__filter-value--shape button:nth-child(3) {
+    background-image: url(../assets/svg/bell.svg);
+    margin-left: 20px;
+}
+
+.toys__filter-value--shape button:nth-child(4) {
+    background-image: url(../assets/svg/cone.svg);
+    margin-left: 20px;
+}
+
+.toys__filter-value--shape button:nth-child(5) {
+    background-image: url(../assets/svg/snowflake.svg);
+    margin-left: 20px;
+}
+
+.toys__filter-value--shape button:nth-child(6) {
+    background-image: url(../assets/svg/toy.svg);
+    margin-left: 20px;
+}
+
