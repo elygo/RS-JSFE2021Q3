@@ -7,6 +7,7 @@ import Footer from './components/footer';
 import Utils from './utils/utils';
 import Routes from './utils/routes';
 
+//import data from './data';
 // The router code. Takes a URL, checks against the list of supported routes and then renders the corresponding content page.
 const router = async () => {
     // Lazy load view element:
@@ -42,3 +43,7 @@ window.addEventListener('hashchange', router);
 
 // Listen on page load:
 window.addEventListener('load', router);
+
+import { Filter } from './utils/filter';
+
+window.addEventListener('load', Filter);

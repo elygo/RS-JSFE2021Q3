@@ -6,34 +6,34 @@ const createElement = (type: string, className: string): HTMLElement => {
     return element;
 };
 // ------ function for creating an element and assigning a classname ------ //
-const createButton = (buttonType: string, datafilter: string): HTMLElement => {
+const createButton = (buttonType: string, datafilter: string, id: string): HTMLElement => {
     const button = document.createElement(buttonType) as HTMLElement;
     button.setAttribute('data-filter', datafilter);
+    button.id = id;
     return button;
 };
 //1. create section-Toys (includes 2 divs)
 const sectionToys = createElement('section', 'toys');
-
+sectionToys.id = 'sectionToys';
 // ------------------------- Filters ---------------------------//
 //1.1 create div- toys__filter (includes 3 child divs)
 const divFilter = createElement('div', 'toys__filter');
+divFilter.id = 'divFilter';
 //1.1.1
 const divValue = createElement('div', 'toys__filter-value');
 const divValueTitle = createElement('div', 'toys__filter-title');
 divValueTitle.innerHTML = 'Филтры по значению';
 
-const shapeSphere = createButton('button', 'шар');
-shapeSphere.id = 'sphere';
-
-const shapeBell = createButton('button', 'колокольчик');
-const shapeCone = createButton('button', 'шишка');
-const shapeSnowflake = createButton('button', 'снежинка');
-const shapeFigure = createButton('button', 'фигурка');
+const shapeSphere = createButton('button', 'шар', 'sphere');
+const shapeBell = createButton('button', 'колокольчик', 'bell');
+const shapeCone = createButton('button', 'шишка', 'cone');
+const shapeSnowflake = createButton('button', 'снежинка', 'snowflake');
+const shapeToy = createButton('button', 'фигурка', 'toy');
 
 const divValueShape = createElement('div', 'toys__filter-value--shape');
 const divValueShapeTitle = createElement('span', 'toys__filter-value-title');
 divValueShapeTitle.innerHTML = 'Форма: ';
-divValueShape.append(divValueShapeTitle, shapeSphere, shapeBell, shapeCone, shapeSnowflake, shapeFigure);
+divValueShape.append(divValueShapeTitle, shapeSphere, shapeBell, shapeCone, shapeSnowflake, shapeToy);
 
 const divValueColor = createElement('div', 'toys__filter-value--color');
 const divValueColorTitle = createElement('span', 'toys__filter-value-title');
@@ -66,45 +66,60 @@ divSort.append(divSortTitle);
 // ------------------------ Toys --------------------- //
 //1.2 create div- toys__items (includes 1 child div)
 const divItems = createElement('div', 'toys__items');
+divItems.id = 'divItems';
 //1.2.1 create div- toys__item
 const divItem = createElement('div', 'toys__items-item');
+divItem.id = 'divItem';
 const itemTitle = createElement('h2', 'item-title');
+itemTitle.id = 'itemTitle';
 //1.2.2 create img- item-img
 const itemImg = document.createElement('img');
 itemImg.className = 'item-img';
+itemImg.id = 'itemImg';
 //1.2.3 create div- item-description
 const itemDescription = createElement('div', 'item-description');
+itemDescription.id = 'itemDescription';
 //1.2.3.1
 const itemQuantity = createElement('p', 'item-quantity');
+itemQuantity.id = 'itemQuantity';
 //1.2.3.2
 const itemYear = createElement('p', 'item-year');
+itemYear.id = 'itemYear';
 //1.2.3.3
 const itemShape = createElement('p', 'item-shape');
+itemShape.id = 'itemShape';
 //1.2.3.4
 const itemColor = createElement('p', 'item-color');
+itemColor.id = 'itemColor';
 //1.2.3.5
 const itemSize = createElement('p', 'item-size');
+itemSize.id = 'itemSize';
 //1.2.3.6
 const itemFavorite = createElement('p', 'item-favorite');
+itemFavorite.id = 'itemFavorite';
 //1.2.4
 const itemRibbon = createElement('p', 'item-ribbon');
+itemRibbon.id = 'itemRibbon';
 //appending childen
 //iterate
-for (let i = 0; i < data.length; i++) {
-    itemTitle.innerHTML = data[i].name;
-    itemImg.src = 'assets/toys/' + data[i].num + '.png';
-    itemQuantity.innerHTML = 'Количество: ' + data[i].count;
-    itemYear.innerHTML = 'Год покупки: ' + data[i].year;
-    itemShape.innerHTML = 'Форма: ' + data[i].shape;
-    itemColor.innerHTML = 'Цвет: ' + data[i].color;
-    itemSize.innerHTML = 'Размер: ' + data[i].size;
-    itemFavorite.innerHTML = 'Любимая: ' + (data[i].favorite ? 'да' : 'нет');
-    itemDescription.append(itemQuantity, itemYear, itemShape, itemColor, itemSize, itemFavorite, itemRibbon);
-    divItem.append(itemTitle, itemImg, itemDescription);
-    divItems.innerHTML += divItem.outerHTML;
-}
+itemDescription.append(itemQuantity, itemYear, itemShape, itemColor, itemSize, itemFavorite, itemRibbon);
+divItem.append(itemTitle, itemImg, itemDescription);
+divItems.appendChild(divItem);
 
 divFilter.append(divValue, divRange, divSort);
+data.forEach((elem) => {
+    itemTitle.innerHTML = elem.name;
+    itemImg.src = 'assets/toys/' + elem.num + '.png';
+    itemQuantity.innerHTML = 'Количество: ' + elem.count;
+    itemYear.innerHTML = 'Год покупки: ' + elem.year;
+    itemShape.innerHTML = 'Форма: ' + elem.shape;
+    itemColor.innerHTML = 'Цвет: ' + elem.color;
+    itemSize.innerHTML = 'Размер: ' + elem.size;
+    itemFavorite.innerHTML = 'Любимая: ' + (elem.favorite ? 'да' : 'нет');
+    itemDescription.append(itemQuantity, itemYear, itemShape, itemColor, itemSize, itemFavorite, itemRibbon);
+    divItem.append(itemDescription);
+    divItems.innerHTML += divItem.outerHTML;
+});
 
 sectionToys.append(divFilter, divItems);
 
