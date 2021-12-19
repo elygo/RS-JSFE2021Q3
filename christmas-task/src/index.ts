@@ -43,7 +43,3 @@ window.addEventListener('hashchange', router);
 
 // Listen on page load:
 window.addEventListener('load', router);
-
-import { Filter } from './utils/filter';
-
-window.addEventListener('load', Filter);
