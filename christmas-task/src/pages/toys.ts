@@ -68,8 +68,22 @@ divValue.append(divValueTitle, divValueShape, divValueColor, divValueSize, divVa
 const divRange = createElement('div', 'toys__filter-range');
 const divRangeTitle = createElement('div', 'toys__filter-title');
 divRangeTitle.innerHTML = 'Фильтры по диапазону';
+//1.1.2.1
+const spanExampleTitle = createElement('span', 'toys__filter-range--slidertitle');
+spanExampleTitle.innerHTML = 'Количество экземпляров: ';
+const divFirstSlider = createElement('div', 'toys__filter-range--firstslider');
+const divExampleSlider = createElement('div', 'toys__filter-range--exampleslider');
+divExampleSlider.id = 'exampleSlider';
+divFirstSlider.append(spanExampleTitle, divExampleSlider);
+//1.1.2.2
+const spanYearTitle = createElement('span', 'toys__filter-range--slidertitle');
+spanYearTitle.innerHTML = 'Год приобретения: ';
+const divSecondSlider = createElement('div', 'toys__filter-range--secondtslider');
+const divYearSlider = createElement('div', 'toys__filter-range--yearslider');
+divYearSlider.id = 'yearSlider';
+divSecondSlider.append(spanYearTitle, divYearSlider);
 
-divRange.append(divRangeTitle);
+divRange.append(divRangeTitle, divFirstSlider, divSecondSlider);
 //1.1.3
 const divSort = createElement('div', 'toys__filter-sort');
 const divSortTitle = createElement('div', 'toys__filter-title');

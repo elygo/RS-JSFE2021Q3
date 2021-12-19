@@ -1,5 +1,7 @@
 import data from '../data';
 
+import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 interface Ifilter {
     num: string[];
     name: string[];
@@ -35,6 +37,26 @@ export function Filter() {
     const itemDescription = document.getElementById('itemDescription') as HTMLElement;
     const divItem = document.getElementById('divItem') as HTMLElement;
     const divItems = document.getElementById('divItems') as HTMLElement;
+
+    const divExampleSlider = document.getElementById('exampleSlider') as HTMLElement;
+    noUiSlider.create(divExampleSlider, {
+        start: [0, 100],
+        connect: true,
+        range: {
+            min: 0,
+            max: 100,
+        },
+    });
+
+    const divYearSlider = document.getElementById('yearSlider') as HTMLElement;
+    noUiSlider.create(divYearSlider, {
+        start: [0, 100],
+        connect: true,
+        range: {
+            min: 0,
+            max: 100,
+        },
+    });
 
     function filterInner(items: Idata[]) {
         divItems.innerHTML = '';
