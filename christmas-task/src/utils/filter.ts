@@ -25,6 +25,7 @@ interface Idata {
 }
 
 export function Filter() {
+    let selectedCounter = 0;
     const itemTitle = document.getElementById('itemTitle') as HTMLElement;
     const itemImg = document.getElementById('itemImg') as HTMLImageElement;
     const itemQuantity = document.getElementById('itemQuantity') as HTMLElement;
@@ -73,6 +74,36 @@ export function Filter() {
             divItem.append(itemDescription);
             divItems.innerHTML += divItem.outerHTML;
         });
+        for (let i = 0; i < divItems.children.length; i++) {
+            let selectedOddEven = 0;
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            divItems.children[i].addEventListener('click', function () {
+                if (selectedCounter < 20) {
+                    if (selectedOddEven % 2 == 0 && (divItems.children[i].className = 'toys__items-item selected')) {
+                        divItems.children[i].className = 'toys__items-item selected';
+                        ++selectedCounter;
+                        (document.getElementById(
+                            'item-counter'
+                        ) as HTMLInputElement).innerHTML = selectedCounter.toString();
+                    } else {
+                        divItems.children[i].className = 'toys__items-item';
+                        --selectedCounter;
+                        (document.getElementById(
+                            'item-counter'
+                        ) as HTMLInputElement).innerHTML = selectedCounter.toString();
+                    }
+                } else if (divItems.children[i].className == 'toys__items-item selected') {
+                    divItems.children[i].className = 'toys__items-item';
+                    --selectedCounter;
+                    (document.getElementById(
+                        'item-counter'
+                    ) as HTMLInputElement).innerHTML = selectedCounter.toString();
+                } else {
+                    alert('Извините, все слоты заполнены');
+                }
+                ++selectedOddEven;
+            });
+        }
     }
     filterInner(data);
 
@@ -175,6 +206,7 @@ export function Filter() {
     appendSizeFilter('medium', 'средний');
     appendSizeFilter('small', 'малый');
 
+    //Favorite
     function appendFavoriteFilter(id: string) {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLInputElement;
@@ -190,4 +222,76 @@ export function Filter() {
         });
     }
     appendFavoriteFilter('favorite');
+
+    //Sort
+    function sortDataNameAsc() {
+        data.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+        filterInner(filterData(data, filter));
+    }
+
+    function sortDataNameDesc() {
+        data.sort((a, b) => (a.name < b.name ? 1 : b.name < a.name ? -1 : 0));
+        filterInner(filterData(data, filter));
+    }
+
+    function sortDataCountAsc() {
+        data.sort((a, b) => Number(a.year) - Number(b.year));
+        filterInner(filterData(data, filter));
+    }
+
+    function sortDataCountDesc() {
+        data.sort((a, b) => Number(b.year) - Number(a.year));
+        filterInner(filterData(data, filter));
+    }
+
+    const divSort = document.getElementById('divSelect') as HTMLSelectElement;
+    divSort.addEventListener('change', function () {
+        if (divSort.options[divSort.selectedIndex].value == 'sort-name-max') {
+            sortDataNameAsc();
+        } else if (divSort.options[divSort.selectedIndex].value == 'sort-name-min') {
+            sortDataNameDesc();
+        } else if (divSort.options[divSort.selectedIndex].value == 'sort-count-max') {
+            sortDataCountAsc();
+        } else if (divSort.options[divSort.selectedIndex].value == 'sort-count-min') {
+            sortDataCountDesc();
+        }
+    });
+
+    //Search
+    const inputSearch = document.getElementById('navbar-search') as HTMLInputElement;
+    inputSearch.addEventListener('keyup', () => {
+        if (inputSearch.value == '') {
+            filterInner(filterData(data, filter));
+        } else if (inputSearch.value !== undefined || inputSearch.value !== null) {
+            if (
+                filterData(data, filter).every(
+                    (x) => x.name.slice(0, inputSearch.value.length).toLocaleLowerCase() !== inputSearch.value
+                )
+            ) {
+                alert('Извините, совпадений не обнаружено');
+            } else {
+                filterInner(
+                    filterData(data, filter).filter((x) => x.name.toLocaleLowerCase().includes(inputSearch.value))
+                );
+            }
+        }
+    });
+
+    //Reset
+    (document.getElementById('reset') as HTMLElement).addEventListener('click', () => {
+        Object.values(filter).filter((item) => {
+            while (item.length) {
+                item.pop();
+            }
+        });
+        filterInner(filterData(data, filter));
+    });
+
+    //console
+    console.log(
+        '1. Вёрстка +10; \n2. Карточка содержит все элементы +10; \n3. Избранное +20;\n4. Сортировка +20; \n5. Фильтр в диапазоне 0;'
+    );
+    console.log(
+        '6. Фильтры по значению +30; \n7. По фильтрам разоного типа +20; \n8. Сброс +10; \n9. Localstorage 0; \n10. Поиск +30; Общий балл: 150'
+    );
 }

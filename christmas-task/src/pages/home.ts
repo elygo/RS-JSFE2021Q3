@@ -8,7 +8,10 @@ const HomePage = {
             <button class="home__start" onclick="location.href='/#/toys'" type="button">Начать</button>            
         </section>`;
     },
-    after_render: async () => {},
+    after_render: async () => {
+        (document.getElementById('navbar-search') as HTMLInputElement).focus();
+        (document.getElementById('navbar-search') as HTMLInputElement).select();
+    },
 };
 
 export default HomePage;

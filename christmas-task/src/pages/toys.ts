@@ -106,10 +106,12 @@ divOptionCountMin.value = 'sort-count-min';
 divOptionCountMin.innerHTML = 'По количеству по убыванию';
 
 const divSelect = createElement('select', 'toys__filter-sort--select');
+divSelect.id = 'divSelect';
 divSelect.append(divOptionNameMax, divOptionNameMin, divOptionCountMax, divOptionCountMin);
 
 const buttonReset = document.createElement('button') as HTMLElement;
 buttonReset.className = 'reset';
+buttonReset.id = 'reset';
 buttonReset.innerHTML = 'Сброс фильтров';
 
 divSort.append(divSortTitle, divSelect, buttonReset);

@@ -2,7 +2,6 @@ const Header = {
     render: async () => {
         return `
              <nav class="navbar" role="navigation" aria-label="main navigation">
-                    <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
                         <div class="navbar-start">
                             <a class="navbar-item" href="/#/">
                                 Home
@@ -14,12 +13,11 @@ const Header = {
                                 Tree
                             </a>
                         </div>
+                        <div class="navbar-center"></div>
                         <div class="navbar-end">
-                            <a class="navbar-item" href="/#/">
-                                Home
-                            </a>
+                            <input type="search" id="navbar-search" autocomplete="off" placeholder="Введите текст...">
+                            <div class="item-counter"><span id="item-counter">0</span></div>
                         </div>
-                    </div>
             </nav>
         `;
     },
