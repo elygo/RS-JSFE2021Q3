@@ -14,6 +14,11 @@ const Header = {
                                 Tree
                             </a>
                         </div>
+                        <div class="navbar-end">
+                            <a class="navbar-item" href="/#/">
+                                Home
+                            </a>
+                        </div>
                     </div>
             </nav>
         `;

@@ -89,7 +89,30 @@ const divSort = createElement('div', 'toys__filter-sort');
 const divSortTitle = createElement('div', 'toys__filter-title');
 divSortTitle.innerHTML = 'Сортировка';
 
-divSort.append(divSortTitle);
+const divOptionNameMax = document.createElement('option');
+divOptionNameMax.value = 'sort-name-max';
+divOptionNameMax.innerHTML = 'По названию от «А» до «Я»';
+
+const divOptionNameMin = document.createElement('option');
+divOptionNameMin.value = 'sort-name-min';
+divOptionNameMin.innerHTML = 'По названию от «Я» до «А»';
+
+const divOptionCountMax = document.createElement('option');
+divOptionCountMax.value = 'sort-count-max';
+divOptionCountMax.innerHTML = 'По количеству по возрастанию';
+
+const divOptionCountMin = document.createElement('option');
+divOptionCountMin.value = 'sort-count-min';
+divOptionCountMin.innerHTML = 'По количеству по убыванию';
+
+const divSelect = createElement('select', 'toys__filter-sort--select');
+divSelect.append(divOptionNameMax, divOptionNameMin, divOptionCountMax, divOptionCountMin);
+
+const buttonReset = document.createElement('button') as HTMLElement;
+buttonReset.className = 'reset';
+buttonReset.innerHTML = 'Сброс фильтров';
+
+divSort.append(divSortTitle, divSelect, buttonReset);
 // ------------------------ Toys --------------------- //
 //1.2 create div- toys__items (includes 1 child div)
 const divItems = createElement('div', 'toys__items');
