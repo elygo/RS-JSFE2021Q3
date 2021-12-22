@@ -99,11 +99,11 @@ divOptionNameMin.innerHTML = 'По названию от «Я» до «А»';
 
 const divOptionCountMax = document.createElement('option');
 divOptionCountMax.value = 'sort-count-max';
-divOptionCountMax.innerHTML = 'По количеству по возрастанию';
+divOptionCountMax.innerHTML = 'По году приобретения по возрастанию';
 
 const divOptionCountMin = document.createElement('option');
 divOptionCountMin.value = 'sort-count-min';
-divOptionCountMin.innerHTML = 'По количеству по убыванию';
+divOptionCountMin.innerHTML = 'По году приобретения по убыванию';
 
 const divSelect = createElement('select', 'toys__filter-sort--select');
 divSelect.id = 'divSelect';

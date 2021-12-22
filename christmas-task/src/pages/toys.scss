@@ -211,6 +211,16 @@
     }
 }
 
+.toys__filter-range {
+    &--firstslider {
+        margin-top: 20px;
+    }
+
+    &--secondtslider {
+        margin-top: 20px;
+    }
+}
+
 .toys__filter-value--size {
     display: flex;
     align-items: center;
@@ -299,4 +309,31 @@
     cursor: pointer;
     color: #fff;
     font: inherit;
+}
+
+#exampleSlider, #yearSlider {
+    margin-top: 40px;
+    height: 10px;
+}
+
+#exampleSlider .noUi-connect,
+#yearSlider .noUi-connect
+ {
+    background: #278D9F;
+}
+
+#exampleSlider .noUi-handle,
+#yearSlider .noUi-handle {
+    height: 18px;
+    width: 18px;
+    top: -5px;
+    right: -9px; /* half the width */
+    border-radius: 9px;
+}
+
+#exampleSlider .noUi-handle::before,
+#yearSlider .noUi-handle::before,
+#exampleSlider .noUi-handle::after,
+#yearSlider .noUi-handle::after {
+    display: none;
 }

@@ -1,6 +1,6 @@
 import data from '../data';
 
-import noUiSlider from 'nouislider';
+import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 interface Ifilter {
     num: string[];
@@ -38,26 +38,6 @@ export function Filter() {
     const itemDescription = document.getElementById('itemDescription') as HTMLElement;
     const divItem = document.getElementById('divItem') as HTMLElement;
     const divItems = document.getElementById('divItems') as HTMLElement;
-
-    const divExampleSlider = document.getElementById('exampleSlider') as HTMLElement;
-    noUiSlider.create(divExampleSlider, {
-        start: [0, 100],
-        connect: true,
-        range: {
-            min: 0,
-            max: 100,
-        },
-    });
-
-    const divYearSlider = document.getElementById('yearSlider') as HTMLElement;
-    noUiSlider.create(divYearSlider, {
-        start: [0, 100],
-        connect: true,
-        range: {
-            min: 0,
-            max: 100,
-        },
-    });
 
     function filterInner(items: Idata[]) {
         divItems.innerHTML = '';
@@ -122,10 +102,28 @@ export function Filter() {
         const filterKeys = Object.keys(filterObject);
         const filteredData = res.filter((item: any) => {
             return filterKeys.every((key) => {
-                if (!filterObject[key].length) {
-                    return true;
+                if (key == 'year') {
+                    if (!filterObject[key].length) {
+                        return true;
+                    }
+                    return (
+                        Number(filterObject[key][0]) <= Number(item[key]) &&
+                        Number(filterObject[key][1]) >= Number(item[key])
+                    );
+                } else if (key == 'count') {
+                    if (!filterObject[key].length) {
+                        return true;
+                    }
+                    return (
+                        Number(filterObject[key][0]) <= Number(item[key]) &&
+                        Number(filterObject[key][1]) >= Number(item[key])
+                    );
+                } else {
+                    if (!filterObject[key].length) {
+                        return true;
+                    }
+                    return filterObject[key].includes(item[key]);
                 }
-                return filterObject[key].includes(item[key]);
             });
         });
         return filteredData;
@@ -287,11 +285,63 @@ export function Filter() {
         filterInner(filterData(data, filter));
     });
 
+    const divExampleSlider = document.getElementById('exampleSlider') as noUiSlider.target;
+    noUiSlider.create(divExampleSlider, {
+        start: [0, 15],
+        tooltips: true,
+        connect: true,
+        range: {
+            min: 0,
+            max: 15,
+        },
+        step: 1,
+    });
+
+    (divExampleSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
+        if (filter.count.length == 0) {
+            filter.count.push(Math.floor(Number(values[0])).toString());
+            filter.count.push(Math.floor(Number(values[1])).toString());
+        } else {
+            while (filter.count.length) {
+                filter.count.pop();
+            }
+            filter.count.push(Math.floor(Number(values[0])).toString());
+            filter.count.push(Math.floor(Number(values[1])).toString());
+        }
+        filterInner(filterData(data, filter));
+    });
+
+    const divYearSlider = document.getElementById('yearSlider') as noUiSlider.target;
+    noUiSlider.create(divYearSlider, {
+        start: [1940, 2020],
+        tooltips: true,
+        connect: true,
+        range: {
+            min: 1940,
+            max: 2020,
+        },
+        step: 1,
+    });
+
+    (divYearSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
+        if (filter.year.length == 0) {
+            filter.year.push(Math.floor(Number(values[0])).toString());
+            filter.year.push(Math.floor(Number(values[1])).toString());
+        } else {
+            while (filter.year.length) {
+                filter.year.pop();
+            }
+            filter.year.push(Math.floor(Number(values[0])).toString());
+            filter.year.push(Math.floor(Number(values[1])).toString());
+        }
+        filterInner(filterData(data, filter));
+    });
+
     //console
     console.log(
-        '1. Вёрстка +10; \n2. Карточка содержит все элементы +10; \n3. Избранное +20;\n4. Сортировка +20; \n5. Фильтр в диапазоне 0;'
+        '1. Вёрстка +10; \n2. Карточка содержит все элементы +10; \n3. Избранное +20;\n4. Сортировка +20; \n5. Фильтр в диапазоне +30;'
     );
     console.log(
-        '6. Фильтры по значению +30; \n7. По фильтрам разоного типа +20; \n8. Сброс +10; \n9. Localstorage 0; \n10. Поиск +30; Общий балл: 150'
+        '6. Фильтры по значению +30; \n7. По фильтрам разоного типа +20; \n8. Сброс +10; \n9. Localstorage 0; \n10. Поиск +30; Общий балл: 180'
     );
 }
