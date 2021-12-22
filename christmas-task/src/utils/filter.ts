@@ -275,16 +275,6 @@ export function Filter() {
         }
     });
 
-    //Reset
-    (document.getElementById('reset') as HTMLElement).addEventListener('click', () => {
-        Object.values(filter).filter((item) => {
-            while (item.length) {
-                item.pop();
-            }
-        });
-        filterInner(filterData(data, filter));
-    });
-
     const divExampleSlider = document.getElementById('exampleSlider') as noUiSlider.target;
     noUiSlider.create(divExampleSlider, {
         start: [0, 15],
@@ -295,6 +285,14 @@ export function Filter() {
             max: 15,
         },
         step: 1,
+        format: {
+            from: function (value) {
+                return parseInt(value.toString());
+            },
+            to: function (value) {
+                return parseInt(value.toString());
+            },
+        },
     });
 
     (divExampleSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
@@ -321,6 +319,14 @@ export function Filter() {
             max: 2020,
         },
         step: 1,
+        format: {
+            from: function (value) {
+                return parseInt(value.toString());
+            },
+            to: function (value) {
+                return parseInt(value.toString());
+            },
+        },
     });
 
     (divYearSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
@@ -337,11 +343,47 @@ export function Filter() {
         filterInner(filterData(data, filter));
     });
 
-    //console
-    console.log(
-        '1. Вёрстка +10; \n2. Карточка содержит все элементы +10; \n3. Избранное +20;\n4. Сортировка +20; \n5. Фильтр в диапазоне +30;'
-    );
-    console.log(
-        '6. Фильтры по значению +30; \n7. По фильтрам разоного типа +20; \n8. Сброс +10; \n9. Localstorage 0; \n10. Поиск +30; Общий балл: 180'
-    );
+    //Reset
+    (document.getElementById('reset') as HTMLElement).addEventListener('click', () => {
+        for (let i = 0; i < document.querySelectorAll('button').length; i++) {
+            document.querySelectorAll('button')[i].style.filter = '';
+        }
+
+        (document.getElementById('white') as HTMLInputElement).className = '';
+        (document.getElementById('yellow') as HTMLInputElement).className = '';
+        (document.getElementById('red') as HTMLInputElement).className = '';
+        (document.getElementById('blue') as HTMLInputElement).className = '';
+        (document.getElementById('green') as HTMLInputElement).className = '';
+
+        (document.querySelector('.favorite') as HTMLInputElement).checked = false;
+
+        (divYearSlider.noUiSlider as noUiSlider.API).updateOptions(
+            {
+                start: [1940, 2020],
+                range: {
+                    min: 1940,
+                    max: 2020,
+                },
+            },
+            false
+        );
+
+        (divExampleSlider.noUiSlider as noUiSlider.API).updateOptions(
+            {
+                start: [0, 15],
+                range: {
+                    min: 0,
+                    max: 15,
+                },
+            },
+            false
+        );
+
+        Object.values(filter).filter((item) => {
+            while (item.length) {
+                item.pop();
+            }
+        });
+        filterInner(filterData(data, filter));
+    });
 }
