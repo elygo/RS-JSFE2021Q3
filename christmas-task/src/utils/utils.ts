@@ -4,7 +4,7 @@ export interface Irequest {
     verb: string;
 }
 export const Utils = {
-    parseRequestURL: () => {
+    parseRequestURL: (): Irequest => {
         const url = location.hash.slice(1).toLowerCase() || '/';
 
         const r = url.split('/');

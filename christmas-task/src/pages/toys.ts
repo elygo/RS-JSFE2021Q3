@@ -165,10 +165,10 @@ divItem.append(itemDescription);
 sectionToys.append(divFilter, divItems);
 
 const ToysPage = {
-    render: async () => {
+    render: async (): Promise<string> => {
         return sectionToys.outerHTML;
     },
-    after_render: async () => {
+    after_render: async (): Promise<void> => {
         Filter();
     },
 };

@@ -1,5 +1,5 @@
 const HomePage = {
-    render: async () => {
+    render: async (): Promise<string> => {
         return `
         <section class="home">
             <div class="home__title-container">
@@ -8,7 +8,7 @@ const HomePage = {
             <button class="home__start" onclick="location.href='/elygo-JSFE2021Q3/christmas-task-part1/#/toys'" type="button">Начать</button>            
         </section>`;
     },
-    after_render: async () => {
+    after_render: async (): Promise<void> => {
         (document.getElementById('navbar-search') as HTMLInputElement).focus();
         (document.getElementById('navbar-search') as HTMLInputElement).select();
     },

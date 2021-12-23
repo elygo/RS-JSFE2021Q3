@@ -24,7 +24,7 @@ interface Idata {
     favorite: boolean;
 }
 
-export function Filter() {
+export function Filter(): void {
     let selectedCounter = 0;
     const itemTitle = document.getElementById('itemTitle') as HTMLElement;
     const itemImg = document.getElementById('itemImg') as HTMLImageElement;
@@ -39,7 +39,7 @@ export function Filter() {
     const divItem = document.getElementById('divItem') as HTMLElement;
     const divItems = document.getElementById('divItems') as HTMLElement;
 
-    function filterInner(items: Idata[]) {
+    function filterInner(items: Idata[]): void {
         divItems.innerHTML = '';
         items.forEach((elem) => {
             itemTitle.innerHTML = elem.name;
@@ -98,9 +98,9 @@ export function Filter() {
         favorite: [],
     };
 
-    const filterData = (res: Idata[], filterObject: any) => {
-        const filterKeys = Object.keys(filterObject);
-        const filteredData = res.filter((item: any) => {
+    const filterData = (res: Idata[], filterObject: Ifilter) => {
+        const filterKeys = Object.keys(filterObject) as Array<keyof typeof filterObject>;
+        const filteredData = res.filter((item: Idata) => {
             return filterKeys.every((key) => {
                 if (key == 'year') {
                     if (!filterObject[key].length) {
@@ -122,14 +122,14 @@ export function Filter() {
                     if (!filterObject[key].length) {
                         return true;
                     }
-                    return filterObject[key].includes(item[key]);
+                    return filterObject[key].includes(item[key] as never);
                 }
             });
         });
         return filteredData;
     };
 
-    function appendShapeFilter(id: string, value: string) {
+    function appendShapeFilter(id: string, value: string): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
@@ -155,7 +155,7 @@ export function Filter() {
     appendShapeFilter('snowflake', 'снежинка');
     appendShapeFilter('toy', 'фигурка');
 
-    function appendColorFilter(id: string, value: string) {
+    function appendColorFilter(id: string, value: string): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
@@ -180,7 +180,7 @@ export function Filter() {
     appendColorFilter('blue', 'синий');
     appendColorFilter('green', 'зелёный');
 
-    function appendSizeFilter(id: string, value: string) {
+    function appendSizeFilter(id: string, value: string): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
@@ -205,7 +205,7 @@ export function Filter() {
     appendSizeFilter('small', 'малый');
 
     //Favorite
-    function appendFavoriteFilter(id: string) {
+    function appendFavoriteFilter(id: string): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLInputElement;
         filtrableElement.addEventListener('click', () => {
@@ -222,22 +222,22 @@ export function Filter() {
     appendFavoriteFilter('favorite');
 
     //Sort
-    function sortDataNameAsc() {
+    function sortDataNameAsc(): void {
         data.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
         filterInner(filterData(data, filter));
     }
 
-    function sortDataNameDesc() {
+    function sortDataNameDesc(): void {
         data.sort((a, b) => (a.name < b.name ? 1 : b.name < a.name ? -1 : 0));
         filterInner(filterData(data, filter));
     }
 
-    function sortDataCountAsc() {
+    function sortDataCountAsc(): void {
         data.sort((a, b) => Number(a.year) - Number(b.year));
         filterInner(filterData(data, filter));
     }
 
-    function sortDataCountDesc() {
+    function sortDataCountDesc(): void {
         data.sort((a, b) => Number(b.year) - Number(a.year));
         filterInner(filterData(data, filter));
     }

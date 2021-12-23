@@ -1,11 +1,11 @@
 const ErrorPage = {
-    render: async () => {
+    render: async (): Promise<string> => {
         return `
         <section>
             <h1>Error</h1>
         </section>`;
     },
-    after_render: async () => {},
+    after_render: async (): Promise<void> => {},
 };
 
 export default ErrorPage;
