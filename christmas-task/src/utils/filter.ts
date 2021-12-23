@@ -261,11 +261,7 @@ export function Filter(): void {
         if (inputSearch.value == '') {
             filterInner(filterData(data, filter));
         } else if (inputSearch.value !== undefined || inputSearch.value !== null) {
-            if (
-                filterData(data, filter).every(
-                    (x) => x.name.slice(0, inputSearch.value.length).toLocaleLowerCase() !== inputSearch.value
-                )
-            ) {
+            if (filterData(data, filter).every((x) => x.name.toLocaleLowerCase().includes(inputSearch.value))) {
                 alert('Извините, совпадений не обнаружено');
             } else {
                 filterInner(
@@ -357,27 +353,27 @@ export function Filter(): void {
 
         (document.querySelector('.favorite') as HTMLInputElement).checked = false;
 
-        (divYearSlider.noUiSlider as noUiSlider.API).updateOptions(
-            {
-                start: [1940, 2020],
-                range: {
-                    min: 1940,
-                    max: 2020,
-                },
-            },
-            false
-        );
+        // (divYearSlider.noUiSlider as noUiSlider.API).updateOptions(
+        //     {
+        //         start: [1940, 2020],
+        //         range: {
+        //             min: 1940,
+        //             max: 2020,
+        //         },
+        //     },
+        //     false
+        // );
 
-        (divExampleSlider.noUiSlider as noUiSlider.API).updateOptions(
-            {
-                start: [0, 15],
-                range: {
-                    min: 0,
-                    max: 15,
-                },
-            },
-            false
-        );
+        // (divExampleSlider.noUiSlider as noUiSlider.API).updateOptions(
+        //     {
+        //         start: [0, 15],
+        //         range: {
+        //             min: 0,
+        //             max: 15,
+        //         },
+        //     },
+        //     false
+        // );
 
         Object.values(filter).filter((item) => {
             while (item.length) {

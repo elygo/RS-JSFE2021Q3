@@ -169,6 +169,8 @@ const ToysPage = {
         return sectionToys.outerHTML;
     },
     after_render: async (): Promise<void> => {
+        (document.getElementById('navbar-search') as HTMLInputElement).focus();
+        (document.getElementById('navbar-search') as HTMLInputElement).select();
         Filter();
     },
 };
