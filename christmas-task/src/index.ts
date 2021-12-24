@@ -7,7 +7,6 @@ import Footer from './components/footer';
 import Utils from './utils/utils';
 import Routes from './utils/routes';
 
-//import data from './data';
 // The router code. Takes a URL, checks against the list of supported routes and then renders the corresponding content page.
 const router = async (): Promise<void> => {
     // Lazy load view element:

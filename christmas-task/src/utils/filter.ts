@@ -261,11 +261,17 @@ export function Filter(): void {
         if (inputSearch.value == '') {
             filterInner(filterData(data, filter));
         } else if (inputSearch.value !== undefined || inputSearch.value !== null) {
-            if (filterData(data, filter).every((x) => x.name.toLocaleLowerCase().includes(inputSearch.value))) {
+            if (
+                filterData(data, filter).every((x) =>
+                    x.name.toLocaleLowerCase().includes(inputSearch.value.toLocaleLowerCase())
+                )
+            ) {
                 alert('Извините, совпадений не обнаружено');
             } else {
                 filterInner(
-                    filterData(data, filter).filter((x) => x.name.toLocaleLowerCase().includes(inputSearch.value))
+                    filterData(data, filter).filter((x) =>
+                        x.name.toLocaleLowerCase().includes(inputSearch.value.toLocaleLowerCase())
+                    )
                 );
             }
         }
