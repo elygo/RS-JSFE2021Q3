@@ -1,0 +1,72 @@
+.tree {
+    background: rgba(22, 41, 41, 0.5);
+    backdrop-filter: blur(3px);
+    color: #fff;
+    height: 100%;
+    min-height: calc(100vh - 140px);
+    width: 100%;
+    display: flex;
+    &__select {
+        flex: 2;
+        border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__arena {
+        flex: 3;
+        border: 1px solid red;
+    }
+
+    &__toys {
+        flex: 2;
+        border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+//left part
+.select {
+    &__settings {
+        flex: 1;
+        border: 1px solid white;
+    }
+
+    &__tree-picker{
+        flex: 4;
+        border: 1px solid white;
+    }
+
+    &__bg-picker{
+        flex: 3;
+        border: 1px solid white;
+    }
+
+    &__garland {
+        flex: 2;
+        border: 1px solid white;
+    }
+}
+
+// right part
+.final {
+    &__toys {
+        flex: 2;
+        border: 1px solid white;
+    }
+
+    &__trees {
+        flex: 1;
+        border: 1px solid white;
+    }
+}
+
+.bg-item {
+    height: 100px;
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    background-size: auto 110px;
+}

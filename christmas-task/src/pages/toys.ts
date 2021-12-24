@@ -1,7 +1,7 @@
 import { Filter } from '../utils/filter';
 
 // ------ function for creating an element and assigning a classname ------ //
-const createElement = (type: string, className: string): HTMLElement => {
+export const createElement = (type: string, className: string): HTMLElement => {
     const element = document.createElement(type) as HTMLElement;
     element.className = className;
     return element;
