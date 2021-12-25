@@ -31,6 +31,16 @@
     &__settings {
         flex: 1;
         border: 1px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--snowflake {
+            width: 5vh;
+            height: 5vh;
+            background-image: url(../assets/svg/snowflake.svg);
+            background-size: cover;
+        }
     }
 
     &__tree-picker{
@@ -63,10 +73,24 @@
 }
 
 .bg-item {
-    height: 100px;
-    width: 100px;
+    height: 7vh;
+    width: 7vh;
     margin-top: 10px;
     margin-left: 10px;
     border-radius: 10px;
     background-size: auto 110px;
 }
+
+// snowflake
+.fa-snowflake {
+	color: #fff;
+	position: absolute;
+	top: -20px;
+	animation: fall linear forwards;
+}
+
+@keyframes fall {
+	to {
+		transform: translateX(10vw) translateY(97vh) rotate(360deg);
+	}
+};
