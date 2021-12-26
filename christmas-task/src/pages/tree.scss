@@ -7,20 +7,22 @@
     width: 100%;
     display: flex;
     &__select {
-        flex: 2;
-        border: 1px solid red;
+        flex: 3;
         display: flex;
         flex-direction: column;
     }
 
     &__arena {
-        flex: 3;
-        border: 1px solid red;
+        flex: 5;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__toys {
-        flex: 2;
-        border: 1px solid red;
+        flex: 3;
         display: flex;
         flex-direction: column;
     }
@@ -29,33 +31,135 @@
 //left part
 .select {
     &__settings {
-        flex: 1;
-        border: 1px solid white;
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
+        padding: 20px;
 
         &--snowflake {
-            width: 5vh;
-            height: 5vh;
+            width: 4vh;
+            height: 4vh;
             background-image: url(../assets/svg/snowflake.svg);
+            background-size: cover;
+        }
+
+        &--sound {
+            width: 4vh;
+            height: 4vh;
+            background-image: url(../assets/svg/audio.svg);
             background-size: cover;
         }
     }
 
+    &__tree-picker::before{
+        content: 'Выберите ёлку';
+        width: 100%;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 10px;
+        text-transform: uppercase;
+    }
+
     &__tree-picker{
-        flex: 4;
-        border: 1px solid white;
+        margin: 0 auto;
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+    }
+
+    &__bg-picker::before{
+        content: 'Выберите фон';
+        width: 100%;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 10px;
+        text-transform: uppercase;
     }
 
     &__bg-picker{
-        flex: 3;
-        border: 1px solid white;
+        margin: 0 auto;
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+    }
+
+    &__garland::before{
+        content: 'Гирлянда';
+        width: 100%;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 10px;
+        text-transform: uppercase;
     }
 
     &__garland {
-        flex: 2;
-        border: 1px solid white;
+        margin: 0 auto;
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+
+        button {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            margin: 10px 7px;
+            border: 1px solid #134e58;
+            border-radius: 5px;
+            outline: 0;
+            cursor: pointer;
+            transition: .3s;
+    
+            &:nth-child(1) {
+                margin-left: 20px;
+                border-radius: 50%;
+                background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8);
+                box-shadow: 0 -1px 7px 1px, inset #441313 0 -1px 9px, #ccc 0 2px 12px;
+            }
+    
+            &:nth-child(2) {
+                margin-left: 20px;
+                border-radius: 50%;
+                background-color: rgb(255, 0, 0);
+                box-shadow: 0 -1px 7px 1px, inset #441313 0 -1px 9px, #ca5656 0 2px 12px;
+            }
+    
+            &:nth-child(3) {
+                margin-left: 20px;
+                border-radius: 50%;
+                background-color: rgb(61, 190, 250);
+                box-shadow: 0 -1px 7px 1px, inset #006 0 -1px 9px, #3f8cff 0 2px 14px;
+            }
+    
+            &:nth-child(4) {
+                margin-left: 20px;
+                border-radius: 50%;
+                background-color: rgb(238, 255, 0);
+                box-shadow: 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ff0 0 2px 12px;
+            }
+    
+            &:nth-child(5) {
+                margin-left: 20px;
+                border-radius: 50%;
+                background-color: rgba(9, 255, 0, 0.795);
+                box-shadow: 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89ff00 0 2px 12px;
+            }
+
+            &:nth-child(6) {
+                margin-left: 20px;
+                padding-right: 20px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.795);
+            }
+        }
     }
 }
 
@@ -70,6 +174,18 @@
         flex: 1;
         border: 1px solid white;
     }
+}
+
+.tree-item {
+    height: 12vh;
+    width: 12vh;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: rgba(190, 190, 190, 0.5);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
 }
 
 .bg-item {
@@ -94,3 +210,150 @@
 		transform: translateX(10vw) translateY(97vh) rotate(360deg);
 	}
 };
+
+//garland 
+.garland-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 140px);
+    width: inherit;
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.rope {
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.yellow-garland {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 0, 1);
+    box-shadow: 0px 2px 12px 2px rgb(255, 255, 0);
+    -webkit-animation: blinkYellow 1s infinite;
+    animation: blinkYellow 1s infinite;
+}
+
+.yellow-garland:nth-child(2n) {
+    animation: blinkYellow 1.5s infinite;
+}
+
+@-webkit-keyframes blinkYellow {
+    from { background: rgba(255, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0);}
+    50% { background: rgba(255, 255, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0); }
+    to { background: rgba(255, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0);}
+}
+
+@keyframes blinkYellow {
+    from { background: rgba(255, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0); }
+    50% { background: rgba(255, 255, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0 / 20%); }
+    to { background: rgba(255, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 255, 0); }
+}
+
+.red-garland {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(255, 0, 0);
+    box-shadow: 0px 2px 12px 2px rgb(255, 0, 0);
+    -webkit-animation: blinkRed 1s infinite;
+    animation: blinkRed 1s infinite;
+}
+
+.red-garland:nth-child(2n) {
+    animation: blinkRed 1.5s infinite;
+}
+
+@-webkit-keyframes blinkRed {
+    from { background: rgb(255, 0, 0); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0);}
+    50% { background: rgba(255, 0, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0); }
+    to { background: rgba(255, 0, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0);}
+}
+
+@keyframes blinkRed {
+    from { background: rgba(255, 0, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0); }
+    50% { background: rgba(255, 0, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0 / 20%); }
+    to { background: rgba(255, 0, 0, 1); box-shadow: 0px 2px 12px 2px rgb(255, 0, 0); }
+}
+
+.blue-garland {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(23, 157, 247);
+    box-shadow: 0px 2px 12px 2px rgb(23, 157, 247);
+    -webkit-animation: blinkBlue 1s infinite;
+    animation: blinkBlue 1s infinite;
+}
+
+.blue-garland:nth-child(2n) {
+    animation: blinkBlue 1.5s infinite;
+}
+
+@-webkit-keyframes blinkBlue {
+    from { background: rgb(23, 157, 247); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247);}
+    50% { background: rgba(23, 157, 247, 0.4); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247); }
+    to { background: rgba(23, 157, 247, 1); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247);}
+}
+
+@keyframes blinkBlue {
+    from { background: rgb(23, 157, 247); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247);}
+    50% { background: rgba(23, 157, 247, 0.4); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247); }
+    to { background: rgba(23, 157, 247, 1); box-shadow: 0px 2px 12px 2px rgb(23, 157, 247);}
+}
+
+.green-garland {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(21, 255, 0);
+    box-shadow: 0px 2px 12px 2px rgb(21, 255, 0);
+    -webkit-animation: blinkGreen 1s infinite;
+    animation: blinkGreen 1s infinite;
+}
+
+.green-garland:nth-child(2n) {
+    animation: blinkGreen 1.5s infinite;
+}
+
+@-webkit-keyframes blinkGreen {
+    from { background: rgb(21, 255, 0); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0);}
+    50% { background: rgba(21, 255, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0); }
+    to { background: rgba(21, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0);}
+}
+
+@keyframes blinkGreen {
+    from { background: rgb(21, 255, 0); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0);}
+    50% { background: rgba(21, 255, 0, 0.4); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0); }
+    to { background: rgba(21, 255, 0, 1); box-shadow: 0px 2px 12px 2px rgb(21, 255, 0);}
+}
+
+.mixed-garland {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.mixed-garland:nth-child(4n) {
+    animation: blinkYellow 1s infinite;
+}
+
+.mixed-garland:nth-child(4n+1) {
+    animation: blinkGreen 1.5s infinite;
+}
+
+.mixed-garland:nth-child(4n+2) {
+    animation: blinkRed 1s infinite;
+}
+
+.mixed-garland:nth-child(4n+3) {
+    animation: blinkBlue 1.5s infinite;
+}

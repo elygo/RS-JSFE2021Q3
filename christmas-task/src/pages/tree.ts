@@ -1,29 +1,58 @@
+import { snowflakeFall } from '../utils/snowflake';
 import { createElement } from './toys';
 // left part - trees container ----------------------------------//
 const selectTree = createElement('div', 'tree__select');
 // settings - sound and snowflake
-const snowflake = createElement('div', 'select__settings--snowflake');
+const snowflake = createElement('div', 'select__settings--snowflake off');
 snowflake.id = 'snowflake';
+
+const sound = createElement('div', 'select__settings--sound off');
+sound.id = 'sound';
+
 const settings = createElement('div', 'select__settings');
-settings.append(snowflake);
+settings.append(snowflake, sound);
 // tree picker
 const treePicker = createElement('div', 'select__tree-picker');
-treePicker.innerHTML = 'treepicker';
+treePicker.id = 'tree-picker';
+const treeItem = createElement('div', 'tree-item');
+treeItem.id = 'tree-item';
+treeItem.style.backgroundImage = "url('')";
+treePicker.append(treeItem);
 // background picker
 const backgroundPicker = createElement('div', 'select__bg-picker');
+backgroundPicker.id = 'bg-picker';
 const bgItem = createElement('div', 'bg-item');
-bgItem.style.backgroundImage = "url('../assets/bg/1.jpg')";
+bgItem.id = 'bg-item';
+bgItem.style.backgroundImage = "url('')";
 backgroundPicker.append(bgItem);
 // garland
 const garland = createElement('div', 'select__garland');
-garland.innerHTML = 'garland';
+garland.id = 'garland';
 
 selectTree.append(settings, treePicker, backgroundPicker, garland);
 
 // central part - area ---------------------------------------- //
 const arena = createElement('div', 'tree__arena');
 arena.id = 'arena';
-
+// arena background
+arena.style.backgroundImage = "url('../assets/bg/1.jpg')";
+// arena tree
+const treeImage = document.createElement('img');
+treeImage.src = 'assets/tree/1.png';
+treeImage.id = 'tree__arena--imagetree';
+// arena map
+treeImage.useMap = '#tree-image';
+const map = document.createElement('map');
+map.name = 'tree-image';
+//map area
+const area = document.createElement('area');
+area.coords = '35,478,3,638,132,709,390,701,481,649,496,583,451,451,375,245,316,100,251,0,179,113,112,268,74,373';
+area.shape = 'poly';
+map.appendChild(area);
+//garland container
+const garlandContainer = createElement('div', 'garland-container');
+garlandContainer.id = 'garland-container';
+arena.append(garlandContainer, map, treeImage);
 // right part - toys container --------------------------------- //
 const selectToys = createElement('div', 'tree__toys');
 // selected toys
@@ -33,25 +62,41 @@ const usedTrees = createElement('div', 'final__trees');
 selectToys.append(selectedToys, usedTrees);
 
 //functions
-function snowflakeFall() {
-    if ((document.getElementById('snowflake') as HTMLElement).classList.contains('off')) {
-        const snowflakeUnit = document.createElement('i') as HTMLElement;
-        snowflakeUnit.innerHTML = '*';
-        snowflakeUnit.classList.add('fas');
-        snowflakeUnit.classList.add('fa-snowflake');
-        snowflakeUnit.style.left = Math.random() * window.innerWidth + 'px';
-        snowflakeUnit.style.animationDuration = Math.random() * 4 + 2 + 's'; // between 2 - 5 seconds
-        snowflakeUnit.style.opacity = Math.random().toString();
-        snowflakeUnit.style.fontSize = Math.random() * 15 + 10 + 'px';
-
-        document.body.appendChild(snowflakeUnit);
-
-        setTimeout(() => {
-            snowflakeUnit.remove();
-        }, 5000);
+function iterateTrees(): void {
+    const treeElem = document.getElementById('tree-item') as HTMLElement;
+    (document.getElementById('tree-picker') as HTMLElement).innerHTML = '';
+    for (let k = 1; k < 7; k++) {
+        treeElem.style.backgroundImage = "url('../assets/tree/" + k + ".png')";
+        (document.getElementById('tree-picker') as HTMLElement).innerHTML += treeElem.outerHTML;
     }
+
+    (document.getElementById('tree-picker') as HTMLElement).onclick = function (event: MouseEvent) {
+        const target = event.target as HTMLImageElement;
+        if (target.style.backgroundImage) {
+            (document.getElementById(
+                'tree__arena--imagetree'
+            ) as HTMLImageElement).src = target.style.backgroundImage.slice(4, -1).replace(/"/g, '');
+        }
+    };
 }
 
+function iterateBgs(): void {
+    const bgElem = document.getElementById('bg-item') as HTMLElement;
+    (document.getElementById('bg-picker') as HTMLElement).innerHTML = '';
+    for (let k = 1; k <= 10; k++) {
+        bgElem.style.backgroundImage = "url('../assets/bg/" + k + ".jpg')";
+        (document.getElementById('bg-picker') as HTMLElement).innerHTML += bgElem.outerHTML;
+    }
+
+    (document.getElementById('bg-picker') as HTMLElement).onclick = function (event: MouseEvent) {
+        const target = event.target as HTMLElement;
+        if (target.style.backgroundImage) {
+            (document.getElementById('arena') as HTMLElement).style.backgroundImage = target.style.backgroundImage;
+        }
+    };
+}
+
+import { iterateGarland } from '../utils/garland';
 // ------------------- tree page main container -----------------//
 const sectionsTree = createElement('section', 'tree');
 sectionsTree.append(selectTree, arena, selectToys);
@@ -62,22 +107,31 @@ const TreePage = {
     },
     after_render: async (): Promise<void> => {
         // sound
-
+        const audio = new Audio('../assets/audio/audio.mp3');
+        (document.getElementById('sound') as HTMLElement).addEventListener('click', () => {
+            if ((document.getElementById('sound') as HTMLElement).classList.contains('off')) {
+                (document.getElementById('sound') as HTMLElement).classList.remove('off');
+                audio.play();
+            } else {
+                (document.getElementById('sound') as HTMLElement).classList.add('off');
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
         // snowflake
         (document.getElementById('snowflake') as HTMLElement).addEventListener('click', () => {
             if ((document.getElementById('snowflake') as HTMLElement).classList.contains('off')) {
+                snowflakeFall(false);
                 (document.getElementById('snowflake') as HTMLElement).classList.remove('off');
-                setInterval(snowflakeFall, 50);
             } else {
                 (document.getElementById('snowflake') as HTMLElement).classList.add('off');
+                snowflakeFall(true);
             }
         });
 
-        // iterate trees
-
-        // iterate bgs
-
-        // garland
+        iterateTrees();
+        iterateBgs();
+        iterateGarland();
     },
 };
 

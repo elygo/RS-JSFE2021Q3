@@ -7,7 +7,7 @@ export const createElement = (type: string, className: string): HTMLElement => {
     return element;
 };
 // ------ function for creating an element and assigning a classname ------ //
-const createButton = (buttonType: string, datafilter: string, id: string): HTMLElement => {
+export const createButton = (buttonType: string, datafilter: string, id: string): HTMLElement => {
     const button = document.createElement(buttonType) as HTMLElement;
     button.setAttribute('data-filter', datafilter);
     button.id = id;
