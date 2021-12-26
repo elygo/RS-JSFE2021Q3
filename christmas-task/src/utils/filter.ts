@@ -25,7 +25,6 @@ interface Idata {
 }
 
 export function Filter(): void {
-    let selectedCounter = 0;
     const itemTitle = document.getElementById('itemTitle') as HTMLElement;
     const itemImg = document.getElementById('itemImg') as HTMLImageElement;
     const itemQuantity = document.getElementById('itemQuantity') as HTMLElement;
@@ -54,38 +53,33 @@ export function Filter(): void {
             divItem.append(itemDescription);
             divItems.innerHTML += divItem.outerHTML;
         });
-        for (let i = 0; i < divItems.children.length; i++) {
-            let selectedOddEven = 0;
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            divItems.children[i].addEventListener('click', function () {
-                if (selectedCounter < 20) {
-                    if (selectedOddEven % 2 == 0 && (divItems.children[i].className = 'toys__items-item selected')) {
-                        divItems.children[i].className = 'toys__items-item selected';
-                        ++selectedCounter;
-                        (document.getElementById(
-                            'item-counter'
-                        ) as HTMLInputElement).innerHTML = selectedCounter.toString();
-                    } else {
-                        divItems.children[i].className = 'toys__items-item';
-                        --selectedCounter;
-                        (document.getElementById(
-                            'item-counter'
-                        ) as HTMLInputElement).innerHTML = selectedCounter.toString();
-                    }
-                } else if (divItems.children[i].className == 'toys__items-item selected') {
-                    divItems.children[i].className = 'toys__items-item';
-                    --selectedCounter;
-                    (document.getElementById(
-                        'item-counter'
-                    ) as HTMLInputElement).innerHTML = selectedCounter.toString();
-                } else {
-                    alert('Извините, все слоты заполнены');
-                }
-                ++selectedOddEven;
-            });
-        }
     }
     filterInner(data);
+
+    let selectedCounter = 0;
+    const selectedArray: HTMLElement[] = [];
+    divItems.onclick = function (event: MouseEvent) {
+        const target = event.target as HTMLElement;
+        let selectedOddEven = 0;
+        if (selectedCounter < 20 && target.id == 'divItem') {
+            if (selectedOddEven % 2 == 0 && target.className != 'toys__items-item selected') {
+                selectedArray.push(target);
+                target.className = 'toys__items-item selected';
+                ++selectedCounter;
+                (document.getElementById('item-counter') as HTMLInputElement).innerHTML = selectedCounter.toString();
+            } else {
+                selectedArray.splice(selectedArray.indexOf(target), 1);
+                target.className = 'toys__items-item';
+                --selectedCounter;
+                (document.getElementById('item-counter') as HTMLInputElement).innerHTML = selectedCounter.toString();
+            }
+        } else if (target.className == 'toys__items-item selected') {
+            target.className = 'toys__items-item';
+            --selectedCounter;
+            (document.getElementById('item-counter') as HTMLInputElement).innerHTML = selectedCounter.toString();
+        }
+        ++selectedOddEven;
+    };
 
     const filter: Ifilter = {
         num: [],
