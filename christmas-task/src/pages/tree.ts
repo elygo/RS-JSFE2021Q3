@@ -1,5 +1,6 @@
 import { snowflakeFall } from '../utils/snowflake';
 import { createElement } from './toys';
+import data from '../data';
 // left part - trees container ----------------------------------//
 const selectTree = createElement('div', 'tree__select');
 // settings - sound and snowflake
@@ -56,10 +57,16 @@ arena.append(garlandContainer, map, treeImage);
 // right part - toys container --------------------------------- //
 const selectToys = createElement('div', 'tree__toys');
 // selected toys
-const selectedToys = createElement('div', 'final__toys');
+const dragToysContainer = createElement('div', 'drag-toys-container');
+dragToysContainer.id = 'drag-toys-container';
+
+const dragToysItem = createElement('div', 'drag-toys-item');
+dragToysItem.id = 'drag-toys-item';
+dragToysContainer.append(dragToysItem);
 // used trees
-const usedTrees = createElement('div', 'final__trees');
-selectToys.append(selectedToys, usedTrees);
+const usedTreesContainer = createElement('div', 'used-trees-container');
+usedTreesContainer.id = 'used-trees';
+selectToys.append(dragToysContainer, usedTreesContainer);
 
 //functions
 function iterateTrees(): void {
@@ -94,6 +101,29 @@ function iterateBgs(): void {
             (document.getElementById('arena') as HTMLElement).style.backgroundImage = target.style.backgroundImage;
         }
     };
+}
+
+function draggableToys(): void {
+    const dragToysElem = document.getElementById('drag-toys-item') as HTMLElement;
+    const dragToysImg = document.createElement('img') as HTMLImageElement;
+    const dragToysQuant = document.createElement('p') as HTMLElement;
+    (document.getElementById('drag-toys-container') as HTMLElement).innerHTML = '';
+    data.forEach((item) => {
+        let d = 1;
+        if (Number(item.num) <= 20) {
+            dragToysElem.innerHTML = '';
+            while (d <= Number(item.count)) {
+                dragToysImg.src = 'assets/toys/' + item.num + '.png';
+                dragToysImg.id = item.num + '-' + d.toString();
+                dragToysImg.draggable = true;
+                dragToysElem.innerHTML += dragToysImg.outerHTML;
+                d++;
+            }
+            dragToysQuant.innerHTML = item.count;
+            dragToysElem.append(dragToysQuant);
+            (document.getElementById('drag-toys-container') as HTMLElement).innerHTML += dragToysElem.outerHTML;
+        }
+    });
 }
 
 import { iterateGarland } from '../utils/garland';
@@ -132,6 +162,7 @@ const TreePage = {
         iterateTrees();
         iterateBgs();
         iterateGarland();
+        draggableToys();
     },
 };
 

@@ -164,16 +164,63 @@
 }
 
 // right part
-.final {
-    &__toys {
-        flex: 2;
-        border: 1px solid white;
+.drag-toys {
+    &-container::before {
+        content: 'ИГРУШКИ';
+        width: 100%;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 10px;
+        text-transform: uppercase;
     }
 
-    &__trees {
+    &-container {
+        flex: 2;
+        margin: 0 auto;
+        display: flex;        
+        flex-wrap: wrap;
+        width: 80%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 8vh;
+        height: 8vh;
+        margin: 3px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, .5);
+
+        img {
+            display: block;
+            position: absolute;
+            width: 60px;
+            height: 60px; 
+            object-fit: contain;
+            cursor: move;
+        }
+
+        p {
+            z-index: 10;
+            width: 20px;
+            height: 20px;
+            margin: 0 0 0 55px;
+            padding: 0;
+            align-self: flex-end;
+            background-color: #134e58;
+            border-radius: 5px;
+        }
+    }
+}
+
+
+
+.used-trees-container {
         flex: 1;
         border: 1px solid white;
-    }
 }
 
 .tree-item {
