@@ -44,11 +44,13 @@ treeImage.id = 'tree__arena--imagetree';
 // arena map
 treeImage.useMap = '#tree-image';
 const map = document.createElement('map');
+map.id = 'map';
 map.name = 'tree-image';
 //map area
 const area = document.createElement('area');
 area.coords = '35,478,3,638,132,709,390,701,481,649,496,583,451,451,375,245,316,100,251,0,179,113,112,268,74,373';
 area.shape = 'poly';
+area.id = 'area';
 map.appendChild(area);
 //garland container
 const garlandContainer = createElement('div', 'garland-container');
@@ -116,6 +118,10 @@ function draggableToys(): void {
                 dragToysImg.src = 'assets/toys/' + item.num + '.png';
                 dragToysImg.id = item.num + '-' + d.toString();
                 dragToysImg.draggable = true;
+                dragToysImg.width = 60;
+                dragToysImg.height = 60;
+                dragToysImg.style.position = 'absolute';
+                dragToysImg.style.zIndex = '100';
                 dragToysElem.innerHTML += dragToysImg.outerHTML;
                 d++;
             }
@@ -163,6 +169,27 @@ const TreePage = {
         iterateBgs();
         iterateGarland();
         draggableToys();
+
+        const dragToysIterate = document.querySelectorAll('.drag-toys-item');
+
+        for (let i = 0; i < dragToysIterate.length; i++) {
+            (dragToysIterate[i] as HTMLImageElement).ondragstart = function drag(ev: DragEvent) {
+                ev.dataTransfer?.setData('text/html', (ev.target as HTMLImageElement).id);
+            };
+        }
+
+        (document.getElementById('area') as HTMLElement).ondragover = function allowDrop(ev) {
+            ev.preventDefault();
+        };
+
+        (document.getElementById('area') as HTMLElement).ondrop = function drop(ev) {
+            ev.preventDefault();
+            const data1 = ev.dataTransfer?.getData('text/html') as string;
+            const evTarget = document.getElementById(data1) as HTMLImageElement;
+            evTarget.style.left = ev.clientX - evTarget.offsetWidth / 2 + 'px';
+            evTarget.style.top = ev.clientY - evTarget.offsetHeight + 'px';
+            (ev.target as HTMLMapElement)?.append(evTarget);
+        };
     },
 };
 

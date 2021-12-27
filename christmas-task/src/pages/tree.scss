@@ -195,10 +195,7 @@
         background-color: rgba(255, 255, 255, .5);
 
         img {
-            display: block;
             position: absolute;
-            width: 60px;
-            height: 60px; 
             object-fit: contain;
             cursor: move;
         }
@@ -403,4 +400,8 @@
 
 .mixed-garland:nth-child(4n+3) {
     animation: blinkBlue 1.5s infinite;
+}
+
+.area {
+    z-index: 1000;
 }
