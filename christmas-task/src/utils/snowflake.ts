@@ -1,5 +1,8 @@
 export function snowflakeFall(): void {
-    if ((document.getElementById('snowflake') as HTMLElement).classList.contains('off')) {
+    if (
+        (document.getElementById('snowflake') as HTMLElement).classList.contains('off') &&
+        JSON.parse(localStorage.getItem('treepage') as string).snow.indexOf('off') == -1
+    ) {
         const snowflakeUnit = document.createElement('i') as HTMLElement;
         snowflakeUnit.innerHTML = '*';
         snowflakeUnit.classList.add('fas');

@@ -24,6 +24,10 @@ interface Idata {
     favorite: boolean;
 }
 
+interface Iselect {
+    [key: string]: string[];
+}
+
 export function Filter(): void {
     const itemTitle = document.getElementById('itemTitle') as HTMLElement;
     const itemImg = document.getElementById('itemImg') as HTMLImageElement;
@@ -56,20 +60,55 @@ export function Filter(): void {
     }
     filterInner(data);
 
-    let selectedCounter = 0;
-    const selectedArray: HTMLElement[] = [];
+    if (localStorage.getItem('select') === null) {
+        const selected: Iselect = {
+            selected: [],
+        };
+
+        localStorage.setItem('select', JSON.stringify(selected));
+    }
+    const selected: Iselect = JSON.parse(localStorage.getItem('select') as string);
+
+    let selectedCounter: number;
+    if (JSON.parse(localStorage.getItem('select') as string).selected.length > 0) {
+        selectedCounter = JSON.parse(localStorage.getItem('select') as string).selected.length;
+        (document.getElementById('item-counter') as HTMLInputElement).innerHTML = JSON.parse(
+            localStorage.getItem('select') as string
+        ).selected.length.toString();
+    } else {
+        selectedCounter = 0;
+    }
+    // for (let s = 0; s < document.querySelectorAll('.toys__items-item').length; s++) {
+    //     if (
+    //         selected.selected.includes(
+    //             document.querySelectorAll('.toys__items-item')[s].getElementsByTagName('h2')[0].innerHTML
+    //         )
+    //     ) {
+    //         (document.querySelectorAll('.toys__items-item')[s] as HTMLElement).style.backgroundColor = 'red';
+    //     }
+    // }
+
     divItems.onclick = function (event: MouseEvent) {
         const target = event.target as HTMLElement;
+        const nameFavor = target.getElementsByTagName('h2')[0].innerHTML;
         let selectedOddEven = 0;
         if (selectedCounter < 20 && target.id == 'divItem') {
-            if (selectedOddEven % 2 == 0 && target.className != 'toys__items-item selected') {
-                selectedArray.push(target);
+            if (
+                selectedOddEven % 2 == 0 &&
+                JSON.parse(localStorage.getItem('select') as string).selected.includes(nameFavor) !== true
+            ) {
+                selected.selected.push(target.getElementsByTagName('h2')[0].innerHTML);
+                localStorage.setItem('select', JSON.stringify(selected));
                 target.className = 'toys__items-item selected';
                 ++selectedCounter;
                 (document.getElementById('item-counter') as HTMLInputElement).innerHTML = selectedCounter.toString();
             } else {
-                selectedArray.splice(selectedArray.indexOf(target), 1);
-                target.className = 'toys__items-item';
+                const selRemove = selected.selected.indexOf(target.getElementsByTagName('h2')[0].innerHTML);
+                if (selRemove > -1) {
+                    selected.selected.splice(selRemove, 1);
+                    localStorage.setItem('select', JSON.stringify(selected));
+                    target.className = 'toys__items-item';
+                }
                 --selectedCounter;
                 (document.getElementById('item-counter') as HTMLInputElement).innerHTML = selectedCounter.toString();
             }

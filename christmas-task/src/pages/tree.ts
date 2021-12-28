@@ -1,6 +1,25 @@
 import { snowflakeFall } from '../utils/snowflake';
 import { createElement } from './toys';
 import data from '../data';
+// ------------------------ localstorage ------------------------//
+interface Itreepage {
+    snow: string[];
+    music: string[];
+    tree: string[];
+    bg: string[];
+}
+if (localStorage.getItem('treepage') === null) {
+    const treepage: Itreepage = {
+        snow: [],
+        music: [],
+        tree: [],
+        bg: [],
+    };
+
+    localStorage.setItem('treepage', JSON.stringify(treepage));
+}
+const treepage: Itreepage = JSON.parse(localStorage.getItem('treepage') as string);
+
 // left part - trees container ----------------------------------//
 const selectTree = createElement('div', 'tree__select');
 // settings - sound and snowflake
@@ -79,9 +98,17 @@ function iterateTrees(): void {
         (document.getElementById('tree-picker') as HTMLElement).innerHTML += treeElem.outerHTML;
     }
 
+    if (JSON.parse(localStorage.getItem('treepage') as string).tree.length !== 0) {
+        (document.getElementById('tree__arena--imagetree') as HTMLImageElement).src =
+            '../assets/tree/' + JSON.parse(localStorage.getItem('treepage') as string).tree[0] + '.png';
+    }
+
     (document.getElementById('tree-picker') as HTMLElement).onclick = function (event: MouseEvent) {
         const target = event.target as HTMLImageElement;
         if (target.style.backgroundImage) {
+            treepage.tree.pop();
+            treepage.tree.push(target.style.backgroundImage.slice(20, -6).replace(/"/g, ''));
+            localStorage.setItem('treepage', JSON.stringify(treepage));
             (document.getElementById(
                 'tree__arena--imagetree'
             ) as HTMLImageElement).src = target.style.backgroundImage.slice(4, -1).replace(/"/g, '');
@@ -97,9 +124,17 @@ function iterateBgs(): void {
         (document.getElementById('bg-picker') as HTMLElement).innerHTML += bgElem.outerHTML;
     }
 
+    if (JSON.parse(localStorage.getItem('treepage') as string).bg.length !== 0) {
+        (document.getElementById('arena') as HTMLElement).style.backgroundImage =
+            "url('../assets/bg/" + JSON.parse(localStorage.getItem('treepage') as string).bg[0] + ".jpg')";
+    }
+
     (document.getElementById('bg-picker') as HTMLElement).onclick = function (event: MouseEvent) {
         const target = event.target as HTMLElement;
         if (target.style.backgroundImage) {
+            treepage.bg.pop();
+            treepage.bg.push(target.style.backgroundImage.slice(18, -6).replace(/"/g, ''));
+            localStorage.setItem('treepage', JSON.stringify(treepage));
             (document.getElementById('arena') as HTMLElement).style.backgroundImage = target.style.backgroundImage;
         }
     };
@@ -132,6 +167,33 @@ function draggableToys(): void {
     });
 }
 
+function selectedToyDrag() {
+    const dragToysElem = document.getElementById('drag-toys-item') as HTMLElement;
+    const dragToysImg = document.createElement('img') as HTMLImageElement;
+    const dragToysQuant = document.createElement('p') as HTMLElement;
+    (document.getElementById('drag-toys-container') as HTMLElement).innerHTML = '';
+    data.forEach((item) => {
+        let d = 1;
+        if (JSON.parse(localStorage.getItem('select') as string).selected.includes(item.name)) {
+            dragToysElem.innerHTML = '';
+            while (d <= Number(item.count)) {
+                dragToysImg.src = 'assets/toys/' + item.num + '.png';
+                dragToysImg.id = item.num + '-' + d.toString();
+                dragToysImg.draggable = true;
+                dragToysImg.width = 60;
+                dragToysImg.height = 60;
+                dragToysImg.style.position = 'absolute';
+                dragToysImg.style.zIndex = '100';
+                dragToysElem.innerHTML += dragToysImg.outerHTML;
+                d++;
+            }
+            dragToysQuant.innerHTML = item.count;
+            dragToysElem.append(dragToysQuant);
+            (document.getElementById('drag-toys-container') as HTMLElement).innerHTML += dragToysElem.outerHTML;
+        }
+    });
+}
+
 import { iterateGarland } from '../utils/garland';
 // ------------------- tree page main container -----------------//
 const sectionsTree = createElement('section', 'tree');
@@ -142,32 +204,68 @@ const TreePage = {
         return sectionsTree.outerHTML;
     },
     after_render: async (): Promise<void> => {
+        if ((document.getElementById('item-counter') as HTMLInputElement) && localStorage.getItem('select') !== null) {
+            (document.getElementById('item-counter') as HTMLInputElement).innerHTML = JSON.parse(
+                localStorage.getItem('select') as string
+            ).selected.length.toString();
+        }
         // sound
         const audio = new Audio('../assets/audio/audio.mp3');
         (document.getElementById('sound') as HTMLElement).addEventListener('click', () => {
-            if ((document.getElementById('sound') as HTMLElement).classList.contains('off')) {
+            if (
+                (document.getElementById('sound') as HTMLElement).classList.contains('off') &&
+                JSON.parse(localStorage.getItem('treepage') as string).music.indexOf('on') == -1
+            ) {
                 (document.getElementById('sound') as HTMLElement).classList.remove('off');
+                treepage.music.push('on');
+                localStorage.setItem('treepage', JSON.stringify(treepage));
                 audio.play();
             } else {
                 (document.getElementById('sound') as HTMLElement).classList.add('off');
+                treepage.music.pop();
+                localStorage.setItem('treepage', JSON.stringify(treepage));
                 audio.pause();
-                audio.currentTime = 0;
+                // audio.currentTime = 0;
             }
         });
         // snowflake
         (document.getElementById('snowflake') as HTMLElement).addEventListener('click', () => {
             setInterval(snowflakeFall, 50);
-            if ((document.getElementById('snowflake') as HTMLElement).classList.contains('off')) {
+            if (
+                (document.getElementById('snowflake') as HTMLElement).classList.contains('off') &&
+                JSON.parse(localStorage.getItem('treepage') as string).snow.indexOf('off') == -1
+            ) {
                 (document.getElementById('snowflake') as HTMLElement).classList.remove('off');
+                treepage.snow.pop();
+                treepage.snow.push('off');
+                localStorage.setItem('treepage', JSON.stringify(treepage));
             } else {
                 (document.getElementById('snowflake') as HTMLElement).classList.add('off');
+                treepage.snow.pop();
+                treepage.snow.push('on');
+                localStorage.setItem('treepage', JSON.stringify(treepage));
             }
         });
+        // launches immediately snowflakes and music
+        document.body.onclick = function () {
+            if (JSON.parse(localStorage.getItem('treepage') as string).music.indexOf('on') !== -1) {
+                audio.play();
+            }
+
+            if (JSON.parse(localStorage.getItem('treepage') as string).snow.indexOf('on') !== -1) {
+                setInterval(snowflakeFall, 50);
+                (document.getElementById('snowflake') as HTMLElement).classList.add('off');
+            }
+        };
 
         iterateTrees();
         iterateBgs();
         iterateGarland();
-        draggableToys();
+        if (localStorage.getItem('select') === null) {
+            draggableToys();
+        } else {
+            selectedToyDrag();
+        }
 
         const dragToysIterate = document.querySelectorAll('.drag-toys-item');
 
