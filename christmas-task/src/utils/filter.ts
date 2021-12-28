@@ -81,17 +81,22 @@ export function Filter(): void {
         ++selectedOddEven;
     };
 
-    const filter: Ifilter = {
-        num: [],
-        name: [],
-        count: [],
-        year: [],
-        shape: [],
-        color: [],
-        size: [],
-        favorite: [],
-    };
+    if (localStorage.getItem('filter') === null) {
+        const filt: Ifilter = {
+            num: [],
+            name: [],
+            count: [],
+            year: [],
+            shape: [],
+            color: [],
+            size: [],
+            favorite: [],
+        };
 
+        localStorage.setItem('filter', JSON.stringify(filt));
+    }
+
+    const filter: Ifilter = JSON.parse(localStorage.getItem('filter') as string);
     const filterData = (res: Idata[], filterObject: Ifilter) => {
         const filterKeys = Object.keys(filterObject) as Array<keyof typeof filterObject>;
         const filteredData = res.filter((item: Idata) => {
@@ -127,15 +132,17 @@ export function Filter(): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
-            if (clicks % 2 == 0) {
+            if (clicks % 2 == 0 && JSON.parse(localStorage.getItem('filter') as string).shape.indexOf(value) == -1) {
                 filtrableElement.style.filter =
                     'invert(51%) sepia(13%) saturate(45%) hue-rotate(349deg) brightness(101%) contrast(147%)';
                 filter.shape.push(value);
+                localStorage.setItem('filter', JSON.stringify(filter));
             } else {
                 filtrableElement.style.filter = '';
                 const index = filter.shape.indexOf(value);
                 if (index > -1) {
                     filter.shape.splice(index, 1);
+                    localStorage.setItem('filter', JSON.stringify(filter));
                 }
             }
             filterInner(filterData(data, filter));
@@ -153,14 +160,16 @@ export function Filter(): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
-            if (clicks % 2 == 0) {
+            if (clicks % 2 == 0 && JSON.parse(localStorage.getItem('filter') as string).color.indexOf(value) == -1) {
                 filtrableElement.className = 'active';
                 filter.color.push(value);
+                localStorage.setItem('filter', JSON.stringify(filter));
             } else {
                 filtrableElement.className = '';
                 const index = filter.color.indexOf(value);
                 if (index > -1) {
                     filter.color.splice(index, 1);
+                    localStorage.setItem('filter', JSON.stringify(filter));
                 }
             }
             filterInner(filterData(data, filter));
@@ -178,15 +187,17 @@ export function Filter(): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLElement;
         filtrableElement.addEventListener('click', () => {
-            if (clicks % 2 == 0) {
+            if (clicks % 2 == 0 && JSON.parse(localStorage.getItem('filter') as string).size.indexOf(value) == -1) {
                 filtrableElement.style.filter =
                     'invert(51%) sepia(13%) saturate(45%) hue-rotate(349deg) brightness(101%) contrast(147%)';
                 filter.size.push(value);
+                localStorage.setItem('filter', JSON.stringify(filter));
             } else {
                 filtrableElement.style.filter = '';
                 const index = filter.size.indexOf(value);
                 if (index > -1) {
                     filter.size.splice(index, 1);
+                    localStorage.setItem('filter', JSON.stringify(filter));
                 }
             }
             filterInner(filterData(data, filter));
@@ -203,11 +214,17 @@ export function Filter(): void {
         let clicks = 0;
         const filtrableElement = document.getElementById(id) as HTMLInputElement;
         filtrableElement.addEventListener('click', () => {
-            if (filtrableElement.checked && clicks % 2 == 0) {
+            if (
+                filtrableElement.checked &&
+                clicks % 2 == 0 &&
+                JSON.parse(localStorage.getItem('filter') as string).favorite.indexOf(true) == -1
+            ) {
                 filter.favorite.push(true);
+                localStorage.setItem('filter', JSON.stringify(filter));
             } else {
                 filter.favorite.pop();
                 filtrableElement.checked = false;
+                localStorage.setItem('filter', JSON.stringify(filter));
             }
             ++clicks;
             filterInner(filterData(data, filter));
@@ -292,15 +309,22 @@ export function Filter(): void {
     });
 
     (divExampleSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
-        if (filter.count.length == 0) {
+        if (
+            (filter.count.length == 0 &&
+                JSON.parse(localStorage.getItem('filter') as string).count.indexOf(values[0]) == -1) ||
+            (filter.count.length == 0 &&
+                JSON.parse(localStorage.getItem('filter') as string).count.indexOf(values[1]) == -1)
+        ) {
             filter.count.push(Math.floor(Number(values[0])).toString());
             filter.count.push(Math.floor(Number(values[1])).toString());
+            localStorage.setItem('filter', JSON.stringify(filter));
         } else {
             while (filter.count.length) {
                 filter.count.pop();
             }
             filter.count.push(Math.floor(Number(values[0])).toString());
             filter.count.push(Math.floor(Number(values[1])).toString());
+            localStorage.setItem('filter', JSON.stringify(filter));
         }
         filterInner(filterData(data, filter));
     });
@@ -326,15 +350,22 @@ export function Filter(): void {
     });
 
     (divYearSlider.noUiSlider as noUiSlider.API).on('update', function (values: (string | number)[]) {
-        if (filter.year.length == 0) {
+        if (
+            (filter.year.length == 0 &&
+                JSON.parse(localStorage.getItem('filter') as string).year.indexOf(values[0]) == -1) ||
+            (filter.year.length == 0 &&
+                JSON.parse(localStorage.getItem('filter') as string).year.indexOf(values[1]) == -1)
+        ) {
             filter.year.push(Math.floor(Number(values[0])).toString());
             filter.year.push(Math.floor(Number(values[1])).toString());
+            localStorage.setItem('filter', JSON.stringify(filter));
         } else {
             while (filter.year.length) {
                 filter.year.pop();
             }
             filter.year.push(Math.floor(Number(values[0])).toString());
             filter.year.push(Math.floor(Number(values[1])).toString());
+            localStorage.setItem('filter', JSON.stringify(filter));
         }
         filterInner(filterData(data, filter));
     });
