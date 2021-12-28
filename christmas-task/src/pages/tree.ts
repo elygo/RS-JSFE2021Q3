@@ -4,7 +4,7 @@ import data from '../data';
 // left part - trees container ----------------------------------//
 const selectTree = createElement('div', 'tree__select');
 // settings - sound and snowflake
-const snowflake = createElement('div', 'select__settings--snowflake off');
+const snowflake = createElement('div', 'select__settings--snowflake');
 snowflake.id = 'snowflake';
 
 const sound = createElement('div', 'select__settings--sound off');
@@ -156,12 +156,11 @@ const TreePage = {
         });
         // snowflake
         (document.getElementById('snowflake') as HTMLElement).addEventListener('click', () => {
+            setInterval(snowflakeFall, 50);
             if ((document.getElementById('snowflake') as HTMLElement).classList.contains('off')) {
-                snowflakeFall(false);
                 (document.getElementById('snowflake') as HTMLElement).classList.remove('off');
             } else {
                 (document.getElementById('snowflake') as HTMLElement).classList.add('off');
-                snowflakeFall(true);
             }
         });
 
