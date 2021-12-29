@@ -314,10 +314,12 @@ const TreePage = {
             evTarget.style.top = ev.clientY - evTarget.offsetHeight + 'px';
 
             // count dragged out from toys-div
-            (evTarget.parentNode as HTMLElement).getElementsByTagName('p')[0].innerHTML = (
-                Number((evTarget.parentNode as HTMLElement).getElementsByTagName('p')[0].innerHTML) - 1
-            ).toString();
-            (ev.target as HTMLMapElement)?.append(evTarget);
+            if ((evTarget.parentNode as HTMLElement).getElementsByTagName('p')[0] !== undefined) {
+                (evTarget.parentNode as HTMLElement).getElementsByTagName('p')[0].innerHTML = (
+                    Number((evTarget.parentNode as HTMLElement).getElementsByTagName('p')[0].innerHTML) - 1
+                ).toString();
+                (ev.target as HTMLMapElement)?.append(evTarget);
+            }
         };
     },
 };
