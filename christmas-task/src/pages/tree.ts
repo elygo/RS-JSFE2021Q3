@@ -7,6 +7,18 @@ interface Itreepage {
     tree: string[];
     bg: string[];
 }
+
+if (localStorage.getItem('treepage') === null) {
+    const treePageStorage: Itreepage = {
+        snow: [],
+        music: [],
+        tree: [],
+        bg: [],
+    };
+
+    localStorage.setItem('treepage', JSON.stringify(treePageStorage));
+}
+
 const treePageStorage: Itreepage = JSON.parse(localStorage.getItem('treepage') as string);
 // left part - trees container ----------------------------------//
 const selectTree = createElement('div', 'tree__select');
