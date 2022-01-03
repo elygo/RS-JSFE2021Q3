@@ -5,7 +5,7 @@ const HomePage = {
             <div class="home__title-container">
                 <div class="home__title">Помогите бабушке нарядить елку</div>
             </div>
-            <button class="home__start" onclick="location.href='/elygo-JSFE2021Q3/christmas-task-part1/#/toys'" type="button">Начать</button>            
+            <button class="home__start" onclick="location.href='/#/toys'" type="button">Начать</button>            
         </section>`;
     },
     after_render: async (): Promise<void> => {
