@@ -2,7 +2,8 @@ import data from '../data';
 
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
-interface Ifilter {
+
+interface IFilter {
     num: string[];
     name: string[];
     count: string[];
@@ -13,7 +14,7 @@ interface Ifilter {
     favorite: boolean[];
 }
 
-interface Idata {
+interface IData {
     num: string;
     name: string;
     count: string;
@@ -24,7 +25,7 @@ interface Idata {
     favorite: boolean;
 }
 
-interface Iselect {
+interface ISelect {
     [key: string]: string[];
 }
 
@@ -42,7 +43,7 @@ export function Filter(): void {
     const divItem = document.getElementById('divItem') as HTMLElement;
     const divItems = document.getElementById('divItems') as HTMLElement;
 
-    function filterInner(items: Idata[]): void {
+    function filterInner(items: IData[]): void {
         divItems.innerHTML = '';
         items.forEach((elem) => {
             itemTitle.innerHTML = elem.name;
@@ -61,13 +62,13 @@ export function Filter(): void {
     filterInner(data);
 
     if (localStorage.getItem('select') === null) {
-        const selected: Iselect = {
+        const selected: ISelect = {
             selected: [],
         };
 
         localStorage.setItem('select', JSON.stringify(selected));
     }
-    const selected: Iselect = JSON.parse(localStorage.getItem('select') as string);
+    const selected: ISelect = JSON.parse(localStorage.getItem('select') as string);
 
     let selectedCounter: number;
     if (JSON.parse(localStorage.getItem('select') as string).selected.length > 0) {
@@ -78,15 +79,6 @@ export function Filter(): void {
     } else {
         selectedCounter = 0;
     }
-    // for (let s = 0; s < document.querySelectorAll('.toys__items-item').length; s++) {
-    //     if (
-    //         selected.selected.includes(
-    //             document.querySelectorAll('.toys__items-item')[s].getElementsByTagName('h2')[0].innerHTML
-    //         )
-    //     ) {
-    //         (document.querySelectorAll('.toys__items-item')[s] as HTMLElement).style.backgroundColor = 'red';
-    //     }
-    // }
 
     divItems.onclick = function (event: MouseEvent) {
         const target = event.target as HTMLElement;
@@ -121,7 +113,7 @@ export function Filter(): void {
     };
 
     if (localStorage.getItem('filter') === null) {
-        const filt: Ifilter = {
+        const filt: IFilter = {
             num: [],
             name: [],
             count: [],
@@ -135,10 +127,10 @@ export function Filter(): void {
         localStorage.setItem('filter', JSON.stringify(filt));
     }
 
-    const filter: Ifilter = JSON.parse(localStorage.getItem('filter') as string);
-    const filterData = (res: Idata[], filterObject: Ifilter) => {
+    const filter: IFilter = JSON.parse(localStorage.getItem('filter') as string);
+    const filterData = (res: IData[], filterObject: IFilter) => {
         const filterKeys = Object.keys(filterObject) as Array<keyof typeof filterObject>;
-        const filteredData = res.filter((item: Idata) => {
+        const filteredData = res.filter((item: IData) => {
             return filterKeys.every((key) => {
                 if (key == 'year') {
                     if (!filterObject[key].length) {
