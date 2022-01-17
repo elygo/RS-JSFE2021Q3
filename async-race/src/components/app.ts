@@ -10,11 +10,12 @@ class App {
 
     async start() {
         await this.garage.getCars(this.garage.baseApi);
-        this.generatehtml.template();
-        this.generatehtml.showCars();
-        this.generatehtml.removeupdateCars();
-        this.generatehtml.createCarBlock();
-        this.generatehtml.updateCarBlock();
+        await this.generatehtml.template();
+        await this.generatehtml.showCars();
+        await this.generatehtml.removeupdateCars();
+        await this.generatehtml.createCarBlock();
+        await this.generatehtml.updateCarBlock();
+        await this.generatehtml.showPages();
     }
 }
 

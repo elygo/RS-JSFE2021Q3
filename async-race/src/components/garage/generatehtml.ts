@@ -37,7 +37,19 @@ class GenerateHtml {
         const cars = document.createElement('div');
         cars.className = 'cars-list';
         cars.id = 'cars-list';
-        content.append(control, cars);
+
+        const pagination = document.createElement('div');
+        pagination.className = 'pagination';
+        const prevPage = document.createElement('button');
+        prevPage.id = 'prev-page';
+        prevPage.innerText = 'PREV';
+        prevPage.disabled = true;
+        const nextPage = document.createElement('button');
+        nextPage.id = 'next-page';
+        nextPage.innerText = 'NEXT';
+        pagination.append(prevPage, nextPage);
+
+        content.append(control, cars, pagination);
 
         const footer = document.createElement('footer');
         footer.className = 'footer';
@@ -60,7 +72,7 @@ class GenerateHtml {
         const carBlock = document.createElement('div');
 
         (document.getElementById('cars-list') as HTMLElement).innerHTML = '';
-        await data.forEach((element: ICars) => {
+        data.forEach((element: ICars) => {
             carName.innerHTML = element.name;
             carName.className = 'name';
 
@@ -83,6 +95,7 @@ class GenerateHtml {
 
             carImage.src = car;
             carImage.className = 'car-image';
+            carImage.id = element.id.toString();
             carImage.setAttribute('path', '#f94d4d');
             carImage.height = 40;
             carImage.width = 80;
@@ -100,12 +113,19 @@ class GenerateHtml {
             const target = event.target as HTMLInputElement;
             if (target.className == 'delete') {
                 await this.garage.removeCar(this.baseApi, target.id);
-                await this.garage.getCars(this.baseApi);
+                await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                 await this.showCars();
+
+                if (await JSON.parse(localStorage.getItem('data') as string).length < 7) {
+                    (document.getElementById('next-page') as HTMLInputElement).disabled = true;
+                }
             }
 
             if (target.className == 'select') {
+                (document.getElementById('name-updatecar-input') as HTMLInputElement).disabled = false;
+                (document.getElementById('color-updatecar-input') as HTMLInputElement).disabled = false;
                 (document.getElementById('update-car-button') as HTMLInputElement).disabled = false;
+
                 (document.getElementById('update-car-button') as HTMLInputElement).onclick = async (e) => {
                     e.preventDefault();
                     await this.garage.updateCar(
@@ -114,8 +134,13 @@ class GenerateHtml {
                         (document.getElementById('name-updatecar-input') as HTMLInputElement).value,
                         (document.getElementById('color-updatecar-input') as HTMLInputElement).value
                     );
-                    await this.garage.getCars(this.baseApi);
+                    await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                     await this.showCars();
+                    
+                    (document.getElementById('name-updatecar-input') as HTMLInputElement).value = '';
+                    (document.getElementById('name-updatecar-input') as HTMLInputElement).disabled = true;
+                    (document.getElementById('color-updatecar-input') as HTMLInputElement).disabled = true;
+                    (document.getElementById('update-car-button') as HTMLInputElement).disabled = true;
                 };
             }
 
@@ -165,8 +190,12 @@ class GenerateHtml {
         buttonCreateCar.onclick = async (e) => {
             e.preventDefault();
             await this.garage.createCar(this.baseApi, nameCreateCar.value, colorCreateCar.value);
-            await this.garage.getCars(this.baseApi);
+            await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
             await this.showCars();
+            nameCreateCar.value = '';
+            if (await JSON.parse(localStorage.getItem('data') as string).length == 7) {
+                (document.getElementById('next-page') as HTMLInputElement).disabled = false;
+            }
         };
     }
 
@@ -175,12 +204,14 @@ class GenerateHtml {
         nameUpdateCar.type = 'text';
         nameUpdateCar.name = 'name';
         nameUpdateCar.id = 'name-updatecar-input';
+        nameUpdateCar.disabled = true;
 
         const colorUpdateCar = document.createElement('input');
         colorUpdateCar.type = 'color';
         colorUpdateCar.value = '#ffffff';
         colorUpdateCar.name = 'color';
         colorUpdateCar.id = 'color-updatecar-input';
+        colorUpdateCar.disabled = true;
 
         const buttonUpdateCar = document.createElement('input');
         buttonUpdateCar.type = 'button';
@@ -197,7 +228,36 @@ class GenerateHtml {
     // async raceBlock () {}
     // async resetBlock () {}
     // async showGenerateCars () {}
-    // async showPages () {}
+    async showPages () {
+        let pageNum = 1;
+        localStorage.setItem('pagenum', pageNum.toString());
+
+        (document.getElementById('next-page') as HTMLInputElement).onclick = async () => {
+            (document.getElementById('prev-page') as HTMLInputElement).disabled = false;
+            pageNum = Number(localStorage.getItem('pagenum'));
+            pageNum++;
+            localStorage.setItem('pagenum', pageNum.toString());
+            await this.garage.getCars(this.baseApi, pageNum.toString());            
+            if (await JSON.parse(localStorage.getItem('data') as string).length < 7) {
+                (document.getElementById('next-page') as HTMLInputElement).disabled = true;
+            }
+            await this.showCars();
+        }
+
+        (document.getElementById('prev-page') as HTMLInputElement).onclick = async () => {
+            pageNum = Number(localStorage.getItem('pagenum'));
+            pageNum--;
+            localStorage.setItem('pagenum', pageNum.toString());
+            if (pageNum == 1) {
+                (document.getElementById('prev-page') as HTMLInputElement).disabled = true;
+            }
+            await this.garage.getCars(this.baseApi, pageNum.toString());
+            if (await JSON.parse(localStorage.getItem('data') as string).length == 7) {
+                (document.getElementById('next-page') as HTMLInputElement).disabled = false;
+            }
+            await this.showCars();
+        }
+    }
 }
 
 export default GenerateHtml;
