@@ -95,7 +95,7 @@ class GenerateHtml {
 
             carImage.src = car;
             carImage.className = 'car-image';
-            carImage.id = element.id.toString();
+            carImage.id = 'car-image' + element.id.toString();
             carImage.setAttribute('path', '#f94d4d');
             carImage.height = 40;
             carImage.width = 80;
@@ -116,7 +116,7 @@ class GenerateHtml {
                 await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                 await this.showCars();
 
-                if (await JSON.parse(localStorage.getItem('data') as string).length < 7) {
+                if ((await JSON.parse(localStorage.getItem('data') as string).length) < 7) {
                     (document.getElementById('next-page') as HTMLInputElement).disabled = true;
                 }
             }
@@ -136,7 +136,7 @@ class GenerateHtml {
                     );
                     await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                     await this.showCars();
-                    
+
                     (document.getElementById('name-updatecar-input') as HTMLInputElement).value = '';
                     (document.getElementById('name-updatecar-input') as HTMLInputElement).disabled = true;
                     (document.getElementById('color-updatecar-input') as HTMLInputElement).disabled = true;
@@ -150,8 +150,7 @@ class GenerateHtml {
                     target.disabled = true;
                 }
                 await this.garage.startstopCar(this.baseApi, target.id, target.className);
-                //await this.garage.getCars(this.baseApi);
-                //await this.showCars();
+                await this.animate('car-image' + target.id, 'started');
             }
 
             if (target.className == 'stopped') {
@@ -160,10 +159,33 @@ class GenerateHtml {
                     target.disabled = true;
                 }
                 await this.garage.startstopCar(this.baseApi, target.id, target.className);
-                //await this.garage.getCars(this.baseApi);
-                //await this.showCars();
+                await this.animate('car-image' + target.id, 'stopped');
             }
         };
+    }
+
+    async animate(id: string, status: string) {
+        if (status == 'started') {
+            (document.getElementById(id) as HTMLImageElement).animate(
+                [
+                    { transform: 'translateX(0px)' },
+                    {
+                        transform: `translateX(${
+                            (document.getElementsByClassName('race-line')[0] as HTMLElement).offsetWidth - 80
+                        }px)`,
+                    },
+                ],
+                {
+                    // timing options
+                    duration: 10000,
+                    iterations: 1,
+                    fill: 'forwards',
+                }
+            );
+        }
+        if (status == 'stopped') {
+            (document.getElementById(id) as HTMLImageElement).getAnimations().map((anim) => anim.cancel());
+        }
     }
 
     async createCarBlock() {
@@ -193,7 +215,7 @@ class GenerateHtml {
             await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
             await this.showCars();
             nameCreateCar.value = '';
-            if (await JSON.parse(localStorage.getItem('data') as string).length == 7) {
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) == 7) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = false;
             }
         };
@@ -228,7 +250,7 @@ class GenerateHtml {
     // async raceBlock () {}
     // async resetBlock () {}
     // async showGenerateCars () {}
-    async showPages () {
+    async showPages() {
         let pageNum = 1;
         localStorage.setItem('pagenum', pageNum.toString());
 
@@ -237,12 +259,12 @@ class GenerateHtml {
             pageNum = Number(localStorage.getItem('pagenum'));
             pageNum++;
             localStorage.setItem('pagenum', pageNum.toString());
-            await this.garage.getCars(this.baseApi, pageNum.toString());            
-            if (await JSON.parse(localStorage.getItem('data') as string).length < 7) {
+            await this.garage.getCars(this.baseApi, pageNum.toString());
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) < 7) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = true;
             }
             await this.showCars();
-        }
+        };
 
         (document.getElementById('prev-page') as HTMLInputElement).onclick = async () => {
             pageNum = Number(localStorage.getItem('pagenum'));
@@ -252,11 +274,11 @@ class GenerateHtml {
                 (document.getElementById('prev-page') as HTMLInputElement).disabled = true;
             }
             await this.garage.getCars(this.baseApi, pageNum.toString());
-            if (await JSON.parse(localStorage.getItem('data') as string).length == 7) {
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) == 7) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = false;
             }
             await this.showCars();
-        }
+        };
     }
 }
 
