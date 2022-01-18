@@ -12,7 +12,7 @@ class Garage {
     }
 
     async getCars(url: string, page?: string) {
-        if (!page) page='1'; 
+        if (!page) page = '1';
         const response = await fetch(url + `garage?_page=${page}&_limit=7`);
         const data = await response.json();
         localStorage.setItem('data', JSON.stringify(data));
