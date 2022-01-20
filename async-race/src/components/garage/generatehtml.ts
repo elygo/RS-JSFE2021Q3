@@ -3,32 +3,41 @@ import Garage from './garage';
 
 import car from './../../assets/car.svg';
 const baseApi = 'http://127.0.0.1:3000/';
+const carsLimitPerPage = 7;
 class GenerateHtml {
     garage: Garage;
     baseApi: string;
+    carsLimitPerPage: number;
     constructor() {
         this.baseApi = baseApi;
+        this.carsLimitPerPage = carsLimitPerPage;
         this.garage = new Garage();
     }
 
     async template() {
         const header = document.createElement('header');
         header.className = 'header';
+
         const nav = document.createElement('nav');
         nav.className = 'nav';
+
         const buttonGarage = document.createElement('button');
         buttonGarage.className = 'link-garage';
         buttonGarage.innerText = 'Garage';
+
         const buttonWinners = document.createElement('button');
         buttonWinners.innerText = 'Winners';
         buttonWinners.className = 'link-winners';
+
         nav.append(buttonGarage, buttonWinners);
         header.append(nav);
 
         const main = document.createElement('main');
         main.className = 'main';
+
         const content = document.createElement('div');
         content.className = 'content';
+
         main.append(content);
 
         const control = document.createElement('div');
@@ -40,27 +49,32 @@ class GenerateHtml {
 
         const pagination = document.createElement('div');
         pagination.className = 'pagination';
+
         const prevPage = document.createElement('button');
         prevPage.id = 'prev-page';
         prevPage.innerText = 'PREV';
         prevPage.disabled = true;
+
         const nextPage = document.createElement('button');
         nextPage.id = 'next-page';
         nextPage.innerText = 'NEXT';
-        pagination.append(prevPage, nextPage);
 
+        pagination.append(prevPage, nextPage);
         content.append(control, cars, pagination);
 
         const footer = document.createElement('footer');
         footer.className = 'footer';
+
         const footerTitle = document.createElement('span');
         footerTitle.innerText = 'Developed by Elyor Farmonov';
+
         footer.appendChild(footerTitle);
         document.body.append(header, main, footer);
     }
 
     async showCars() {
         const data: ICars[] = await JSON.parse(localStorage.getItem('data') as string);
+        const carsList = document.getElementById('cars-list') as HTMLElement;
 
         const carName = document.createElement('div');
         const deleteCar = document.createElement('button');
@@ -71,7 +85,7 @@ class GenerateHtml {
         const raceLine = document.createElement('div');
         const carBlock = document.createElement('div');
 
-        (document.getElementById('cars-list') as HTMLElement).innerHTML = '';
+        carsList.innerHTML = '';
         data.forEach((element: ICars) => {
             carName.innerHTML = element.name;
             carName.className = 'name';
@@ -99,48 +113,50 @@ class GenerateHtml {
             carImage.setAttribute('path', '#f94d4d');
             carImage.height = 40;
             carImage.width = 80;
+
             raceLine.className = 'race-line';
             raceLine.append(carImage);
 
             carBlock.className = 'car-block';
             carBlock.append(carName, deleteCar, selectCar, startCar, stopCar, raceLine);
-            (document.getElementById('cars-list') as HTMLElement).innerHTML += carBlock.outerHTML;
+            carsList.innerHTML += carBlock.outerHTML;
         });
     }
 
     async removeupdateCars() {
-        (document.getElementById('cars-list') as HTMLElement).onclick = async (event: MouseEvent) => {
+        const carsList = document.getElementById('cars-list') as HTMLElement;
+        carsList.onclick = async (event: MouseEvent) => {
             const target = event.target as HTMLInputElement;
+            const carNumFromStorage = await JSON.parse(localStorage.getItem('data') as string).length;
             if (target.className == 'delete') {
                 await this.garage.removeCar(this.baseApi, target.id);
                 await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                 await this.showCars();
 
-                if ((await JSON.parse(localStorage.getItem('data') as string).length) < 7) {
+                if (carNumFromStorage < this.carsLimitPerPage) {
                     (document.getElementById('next-page') as HTMLInputElement).disabled = true;
                 }
             }
 
             if (target.className == 'select') {
-                (document.getElementById('name-updatecar-input') as HTMLInputElement).disabled = false;
-                (document.getElementById('color-updatecar-input') as HTMLInputElement).disabled = false;
-                (document.getElementById('update-car-button') as HTMLInputElement).disabled = false;
+                const carNameUpdate = document.getElementById('name-updatecar-input') as HTMLInputElement;
+                const carColorUpdate = document.getElementById('color-updatecar-input') as HTMLInputElement;
+                const carUpdateButton = document.getElementById('update-car-button') as HTMLInputElement;
 
-                (document.getElementById('update-car-button') as HTMLInputElement).onclick = async (e) => {
+                carNameUpdate.disabled = false;
+                carColorUpdate.disabled = false;
+                carUpdateButton.disabled = false;
+
+                carUpdateButton.onclick = async (e) => {
                     e.preventDefault();
-                    await this.garage.updateCar(
-                        this.baseApi,
-                        target.id,
-                        (document.getElementById('name-updatecar-input') as HTMLInputElement).value,
-                        (document.getElementById('color-updatecar-input') as HTMLInputElement).value
-                    );
+                    await this.garage.updateCar(this.baseApi, target.id, carNameUpdate.value, carColorUpdate.value);
                     await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
                     await this.showCars();
 
-                    (document.getElementById('name-updatecar-input') as HTMLInputElement).value = '';
-                    (document.getElementById('name-updatecar-input') as HTMLInputElement).disabled = true;
-                    (document.getElementById('color-updatecar-input') as HTMLInputElement).disabled = true;
-                    (document.getElementById('update-car-button') as HTMLInputElement).disabled = true;
+                    carNameUpdate.value = '';
+                    carNameUpdate.disabled = true;
+                    carColorUpdate.disabled = true;
+                    carUpdateButton.disabled = true;
                 };
             }
 
@@ -149,8 +165,8 @@ class GenerateHtml {
                     (target.nextElementSibling as HTMLInputElement).disabled = false;
                     target.disabled = true;
                 }
-                await this.garage.startstopCar(this.baseApi, target.id, target.className);
-                await this.animate('car-image' + target.id, 'started');
+                await this.garage.startStopCar(this.baseApi, target.id, target.className);
+                await this.animateOnStart('car-image' + target.id);
             }
 
             if (target.className == 'stopped') {
@@ -158,34 +174,33 @@ class GenerateHtml {
                     (target.previousElementSibling as HTMLInputElement).disabled = false;
                     target.disabled = true;
                 }
-                await this.garage.startstopCar(this.baseApi, target.id, target.className);
-                await this.animate('car-image' + target.id, 'stopped');
+                await this.garage.startStopCar(this.baseApi, target.id, target.className);
+                await this.animateOnStop('car-image' + target.id);
             }
         };
     }
 
-    async animate(id: string, status: string) {
-        if (status == 'started') {
-            (document.getElementById(id) as HTMLImageElement).animate(
-                [
-                    { transform: 'translateX(0px)' },
-                    {
-                        transform: `translateX(${
-                            (document.getElementsByClassName('race-line')[0] as HTMLElement).offsetWidth - 80
-                        }px)`,
-                    },
-                ],
+    async animateOnStart(id: string) {
+        (document.getElementById(id) as HTMLImageElement).animate(
+            [
+                { transform: 'translateX(0px)' },
                 {
-                    // timing options
-                    duration: 10000,
-                    iterations: 1,
-                    fill: 'forwards',
-                }
-            );
-        }
-        if (status == 'stopped') {
-            (document.getElementById(id) as HTMLImageElement).getAnimations().map((anim) => anim.cancel());
-        }
+                    transform: `translateX(${
+                        (document.getElementsByClassName('race-line')[0] as HTMLElement).offsetWidth - 80
+                    }px)`,
+                },
+            ],
+            {
+                // timing options
+                duration: 10000,
+                iterations: 1,
+                fill: 'forwards',
+            }
+        );
+    }
+
+    async animateOnStop(id: string) {
+        (document.getElementById(id) as HTMLImageElement).getAnimations().map((anim) => anim.cancel());
     }
 
     async createCarBlock() {
@@ -215,7 +230,7 @@ class GenerateHtml {
             await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
             await this.showCars();
             nameCreateCar.value = '';
-            if ((await JSON.parse(localStorage.getItem('data') as string).length) == 7) {
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) == this.carsLimitPerPage) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = false;
             }
         };
@@ -260,7 +275,7 @@ class GenerateHtml {
             pageNum++;
             localStorage.setItem('pagenum', pageNum.toString());
             await this.garage.getCars(this.baseApi, pageNum.toString());
-            if ((await JSON.parse(localStorage.getItem('data') as string).length) < 7) {
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) < this.carsLimitPerPage) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = true;
             }
             await this.showCars();
@@ -274,7 +289,7 @@ class GenerateHtml {
                 (document.getElementById('prev-page') as HTMLInputElement).disabled = true;
             }
             await this.garage.getCars(this.baseApi, pageNum.toString());
-            if ((await JSON.parse(localStorage.getItem('data') as string).length) == 7) {
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) == this.carsLimitPerPage) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = false;
             }
             await this.showCars();
