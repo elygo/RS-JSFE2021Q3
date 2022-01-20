@@ -20,7 +20,7 @@
     },
     "rules": {
         "no-debugger": "off",
-        "no-console": "warn",
+        "no-console": "off",
         "class-methods-use-this": "off",
         "prettier/prettier": [
             "error",
