@@ -14,34 +14,14 @@ class GenerateHtml {
         this.garage = new Garage();
     }
 
-    async template() {
-        const header = document.createElement('header');
-        header.className = 'header';
-
-        const nav = document.createElement('nav');
-        nav.className = 'nav';
-
-        const buttonGarage = document.createElement('button');
-        buttonGarage.className = 'link-garage';
-        buttonGarage.innerText = 'Garage';
-
-        const buttonWinners = document.createElement('button');
-        buttonWinners.innerText = 'Winners';
-        buttonWinners.className = 'link-winners';
-
-        nav.append(buttonGarage, buttonWinners);
-        header.append(nav);
-
-        const main = document.createElement('main');
-        main.className = 'main';
-
-        const content = document.createElement('div');
-        content.className = 'content';
-
-        main.append(content);
-
+    async garageContent() {
         const control = document.createElement('div');
         control.className = 'control-panel';
+        const dynamicPart = document.createElement('div');
+        dynamicPart.className = 'control-panel__dynamic';
+        const counterPart = document.createElement('div');
+        counterPart.className = 'control-panel__counter';
+        control.append(dynamicPart, counterPart);
 
         const cars = document.createElement('div');
         cars.className = 'cars-list';
@@ -49,27 +29,16 @@ class GenerateHtml {
 
         const pagination = document.createElement('div');
         pagination.className = 'pagination';
-
         const prevPage = document.createElement('button');
         prevPage.id = 'prev-page';
         prevPage.innerText = 'PREV';
         prevPage.disabled = true;
-
         const nextPage = document.createElement('button');
         nextPage.id = 'next-page';
         nextPage.innerText = 'NEXT';
 
         pagination.append(prevPage, nextPage);
-        content.append(control, cars, pagination);
-
-        const footer = document.createElement('footer');
-        footer.className = 'footer';
-
-        const footerTitle = document.createElement('span');
-        footerTitle.innerText = 'Developed by Elyor Farmonov';
-
-        footer.appendChild(footerTitle);
-        document.body.append(header, main, footer);
+        (document.querySelector('.garage-content') as HTMLElement).append(control, cars, pagination);
     }
 
     async showCars() {
@@ -87,6 +56,15 @@ class GenerateHtml {
 
         carsList.innerHTML = '';
         data.forEach((element: ICars) => {
+            startCar.innerText = 'Start';
+            startCar.className = 'started';
+            startCar.id = element.id.toString();
+
+            stopCar.innerText = 'Stop';
+            stopCar.disabled = true;
+            stopCar.className = 'stopped';
+            stopCar.id = element.id.toString();
+
             carName.innerHTML = element.name;
             carName.className = 'name';
 
@@ -97,15 +75,6 @@ class GenerateHtml {
             selectCar.innerText = 'Select';
             selectCar.className = 'select';
             selectCar.id = element.id.toString();
-
-            startCar.innerText = 'Start';
-            startCar.className = 'started';
-            startCar.id = element.id.toString();
-
-            stopCar.innerText = 'Stop';
-            stopCar.disabled = true;
-            stopCar.className = 'stopped';
-            stopCar.id = element.id.toString();
 
             carImage.src = car;
             carImage.className = 'car-image';
@@ -118,7 +87,7 @@ class GenerateHtml {
             raceLine.append(carImage);
 
             carBlock.className = 'car-block';
-            carBlock.append(carName, deleteCar, selectCar, startCar, stopCar, raceLine);
+            carBlock.append(startCar, stopCar, carName, deleteCar, selectCar, raceLine);
             carsList.innerHTML += carBlock.outerHTML;
         });
     }
@@ -136,6 +105,9 @@ class GenerateHtml {
                 if (carNumFromStorage < this.carsLimitPerPage) {
                     (document.getElementById('next-page') as HTMLInputElement).disabled = true;
                 }
+                (
+                    document.querySelector('.control-panel__counter--cars') as HTMLElement
+                ).innerText = `Garage (${await JSON.parse(localStorage.getItem('totalcars') as string)})`;
             }
 
             if (target.className == 'select') {
@@ -214,15 +186,14 @@ class GenerateHtml {
         colorCreateCar.name = 'color';
         colorCreateCar.id = 'color-car-input';
 
-        const buttonCreateCar = document.createElement('input');
-        buttonCreateCar.type = 'button';
-        buttonCreateCar.value = 'Create';
+        const buttonCreateCar = document.createElement('button');
+        buttonCreateCar.innerText = 'Create';
         buttonCreateCar.id = 'create-car-button';
 
         const createCarBlock = document.createElement('div');
-        createCarBlock.className = 'control-panel__create-car';
+        createCarBlock.className = 'control-panel__dynamic--create-car';
         createCarBlock.append(nameCreateCar, colorCreateCar, buttonCreateCar);
-        (document.querySelector('.control-panel') as HTMLElement).appendChild(createCarBlock);
+        (document.querySelector('.control-panel__dynamic') as HTMLElement).appendChild(createCarBlock);
 
         buttonCreateCar.onclick = async (e) => {
             e.preventDefault();
@@ -233,6 +204,9 @@ class GenerateHtml {
             if ((await JSON.parse(localStorage.getItem('data') as string).length) == this.carsLimitPerPage) {
                 (document.getElementById('next-page') as HTMLInputElement).disabled = false;
             }
+            (
+                document.querySelector('.control-panel__counter--cars') as HTMLElement
+            ).innerText = `Garage (${await JSON.parse(localStorage.getItem('totalcars') as string)})`;
         };
     }
 
@@ -250,21 +224,90 @@ class GenerateHtml {
         colorUpdateCar.id = 'color-updatecar-input';
         colorUpdateCar.disabled = true;
 
-        const buttonUpdateCar = document.createElement('input');
-        buttonUpdateCar.type = 'button';
-        buttonUpdateCar.value = 'Update';
+        const buttonUpdateCar = document.createElement('button');
+        buttonUpdateCar.innerText = 'Update';
         buttonUpdateCar.id = 'update-car-button';
         buttonUpdateCar.disabled = true;
 
         const updateCarBlock = document.createElement('div');
-        updateCarBlock.className = 'control-panel__update-car';
+        updateCarBlock.className = 'control-panel__dynamic--update-car';
         updateCarBlock.append(nameUpdateCar, colorUpdateCar, buttonUpdateCar);
-        (document.querySelector('.control-panel') as HTMLElement).appendChild(updateCarBlock);
+        (document.querySelector('.control-panel__dynamic') as HTMLElement).appendChild(updateCarBlock);
     }
 
-    // async raceBlock () {}
-    // async resetBlock () {}
-    // async showGenerateCars () {}
+    async raceBlock() {
+        const buttonRace = document.createElement('button');
+        buttonRace.innerText = 'Race';
+        buttonRace.id = 'race-button';
+        (document.querySelector('.control-panel__dynamic') as HTMLElement).appendChild(buttonRace);
+    }
+
+    async resetBlock() {
+        const buttonReset = document.createElement('button');
+        buttonReset.innerText = 'Reset';
+        buttonReset.id = 'reset-button';
+        buttonReset.disabled = true;
+        (document.querySelector('.control-panel__dynamic') as HTMLElement).appendChild(buttonReset);
+    }
+
+    async showGenerateCars() {
+        const buttonGenerateCars = document.createElement('button');
+        buttonGenerateCars.innerText = 'Generate';
+        buttonGenerateCars.id = 'generate-cars-button';
+        (document.querySelector('.control-panel__dynamic') as HTMLElement).appendChild(buttonGenerateCars);
+
+        buttonGenerateCars.onclick = async (e) => {
+            e.preventDefault();
+            const brands: string[] = [
+                'Audi',
+                'BMW',
+                'Chevrolet',
+                'Hyundai',
+                'Kia',
+                'Mercedes-Benz',
+                'Porsche',
+                'Tesla',
+                'Toyota',
+                'Volkswagen',
+            ];
+            const models: string[] = [
+                'A8',
+                'M5',
+                'Camaro',
+                'Sonata',
+                'Carnival',
+                'W221',
+                'Cayenne',
+                'Model Y',
+                'Camry',
+                'Tiguan',
+            ];
+
+            const arrayRandom = Array.from({ length: 100 }, () => {
+                return {
+                    name: brands[Math.floor(Math.random() * 10)] + ' ' + models[Math.floor(Math.random() * 10)],
+                    color: '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0'),
+                };
+            });
+
+            await Promise.all(
+                arrayRandom.map(async (newcar) => {
+                    await this.garage.createCar(this.baseApi, newcar.name, newcar.color);
+                })
+            );
+
+            await this.garage.getCars(this.baseApi, localStorage.getItem('pagenum')?.toString());
+            await this.showCars();
+
+            if ((await JSON.parse(localStorage.getItem('data') as string).length) == this.carsLimitPerPage) {
+                (document.getElementById('next-page') as HTMLInputElement).disabled = false;
+            }
+            (
+                document.querySelector('.control-panel__counter--cars') as HTMLElement
+            ).innerText = `Garage (${await JSON.parse(localStorage.getItem('totalcars') as string)})`;
+        };
+    }
+
     async showPages() {
         let pageNum = 1;
         localStorage.setItem('pagenum', pageNum.toString());
@@ -273,6 +316,7 @@ class GenerateHtml {
             (document.getElementById('prev-page') as HTMLInputElement).disabled = false;
             pageNum = Number(localStorage.getItem('pagenum'));
             pageNum++;
+            (document.querySelector('.control-panel__counter--page') as HTMLElement).innerText = `Page (${pageNum})`;
             localStorage.setItem('pagenum', pageNum.toString());
             await this.garage.getCars(this.baseApi, pageNum.toString());
             if ((await JSON.parse(localStorage.getItem('data') as string).length) < this.carsLimitPerPage) {
@@ -284,6 +328,7 @@ class GenerateHtml {
         (document.getElementById('prev-page') as HTMLInputElement).onclick = async () => {
             pageNum = Number(localStorage.getItem('pagenum'));
             pageNum--;
+            (document.querySelector('.control-panel__counter--page') as HTMLElement).innerText = `Page (${pageNum})`;
             localStorage.setItem('pagenum', pageNum.toString());
             if (pageNum == 1) {
                 (document.getElementById('prev-page') as HTMLInputElement).disabled = true;
@@ -294,6 +339,17 @@ class GenerateHtml {
             }
             await this.showCars();
         };
+    }
+
+    async counterBlock() {
+        const pageCounter = document.createElement('div');
+        pageCounter.className = 'control-panel__counter--page';
+        pageCounter.innerText = `Page (${localStorage.getItem('pagenum') as string})`;
+
+        const carsCounter = document.createElement('div');
+        carsCounter.className = 'control-panel__counter--cars';
+        carsCounter.innerText = `Garage (${await JSON.parse(localStorage.getItem('totalcars') as string)})`;
+        (document.querySelector('.control-panel__counter') as HTMLElement).append(carsCounter, pageCounter);
     }
 }
 

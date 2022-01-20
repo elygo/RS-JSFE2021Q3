@@ -20,6 +20,7 @@ class Garage {
             const response = await fetch(url + `garage?_page=${page}&_limit=${this.carsPerPage}`);
             const data: ICars[] = (await response.json()) || [];
             localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('totalcars', JSON.stringify(response.headers.get('X-Total-Count')));
         } catch (error) {
             console.log(error);
         }

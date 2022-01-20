@@ -6,9 +6,10 @@ class Winners {
         this.baseApi = baseApi;
     }
 
-    async show() {
+    async showWinners() {
         const response = await fetch(this.baseApi + '/winners');
         const data = await response.json();
+        (document.querySelector('.winners-content') as HTMLElement).innerHTML = 'Winners';
         console.log(data);
     }
 }
