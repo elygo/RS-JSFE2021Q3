@@ -1,8 +1,15 @@
+const baseApi = 'http://127.0.0.1:3000';
+
 class Winners {
-    url = 'http://127.0.0.1:3000';
+    baseApi: string;
+    constructor() {
+        this.baseApi = baseApi;
+    }
+
     async show() {
-        const response = await fetch(this.url + '/winners');
+        const response = await fetch(this.baseApi + '/winners');
         const data = await response.json();
+        console.log(data);
     }
 }
 
