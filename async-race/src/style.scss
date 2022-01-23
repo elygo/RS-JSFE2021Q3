@@ -31,6 +31,7 @@ body, input, button {
     min-width: 100%;
     min-height: calc(100vh - 100px);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center; 
 }
@@ -38,10 +39,15 @@ body, input, button {
 .footer {
   height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  text-decoration: none;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
 /* garage */
 .garage-content {
   min-width: 100%;
@@ -56,16 +62,16 @@ body, input, button {
 }
 
 .control-panel {
-  width: 60vw;
+  width: 80vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   &__counter {
     width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     font-size: 18px;
   }
 
@@ -94,7 +100,7 @@ body, input, button {
 }
 
 .car-block {
-  width: 60vw;
+  width: 80vw;
   padding-top: 5px;
   display: flex;
   flex-direction: row;
@@ -151,11 +157,72 @@ body, input, button {
 
 .race-line {
   width: 100%;
-  height: 60px;
+  height: 50px;
   border-bottom: 1px solid rgba(248, 10, 10, 0.658);
   display: flex;
   justify-content: start;
   align-items: flex-end;
+}
+
+
+/* spinner */
+.lds-ripple {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid rgb(252, 42, 42);
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+.winner-title {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
+  color: #000000;
+  box-shadow: #000000 0 0 5px, transparent 0 0 0 0;
+  background-color: #7bdb90d0;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
 }
 
 /* winners */
@@ -171,7 +238,42 @@ body, input, button {
   font-family: inherit;
 }
 
-/* CSS */
+.winners-counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  &__total {
+    font-size: 18px;
+  }
+
+  &__page {
+    font-size: 18px;
+  }
+}
+
+.table-container {
+  height: 70vh;
+  font-size: 16px;
+}
+
+table {
+  border-spacing: unset;
+}
+
+th {
+  background-color: rgba(29, 187, 8, 0.856);
+  border: none;
+}
+
+th, td {
+  padding: 8px 22px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+/* general */
 .link-garage, .link-winners {
   width: 80px;
   background-color: #fff;
@@ -230,5 +332,64 @@ button {
     color: rgb(114, 114, 114);
     background-color: rgb(205, 209, 205);
     box-shadow: none;
+  }
+}
+
+.head-wins {
+  cursor: pointer;
+}
+
+.head-besttime {
+  cursor: pointer;
+}
+
+.asc:after {
+  content: '';
+  background:url('./assets/sort-up-solid.svg');
+  background-size: 20px 20px;
+  position:absolute;
+  width:20px;
+  height:20px;
+  margin-top:5px;
+  margin-left:5px;
+}
+
+.desc:after {
+  content: '';
+  background:url('./assets/sort-down-solid.svg');
+  background-size: 20px 20px;
+  position:absolute;
+  width:20px;
+  height:20px;
+  margin-left:5px;
+}
+
+
+@media (min-width: 500px) and (max-width: 700px) {
+  .control-panel {
+    width: 90vw;
+
+    &__counter{
+      align-items: center;
+      &--cars{
+        font-size: 14px;
+      }
+      
+      &--page{
+        font-size: 14px;
+      }
+    }
+  }
+
+  .car-block {
+    width: 90vw;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  button {
+    width: 60px;
   }
 }

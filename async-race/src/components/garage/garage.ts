@@ -14,6 +14,16 @@ class Garage {
         this.carsPerPage = carsPerPage;
     }
 
+    async getCar(url: string, id: string) {
+        try {
+            const response = await fetch(url + `garage/${id}`);
+            const data: ICars = (await response.json()) || [];
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async getCars(url: string, page?: string) {
         try {
             if (!page) page = '1';
@@ -29,7 +39,7 @@ class Garage {
     async createCar(url: string, name: string, color: string) {
         try {
             await fetch(url + 'garage', {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -44,11 +54,11 @@ class Garage {
         }
     }
 
-    async removeCar(url: string, id: string) {
+    async deleteCar(url: string, id: string) {
         try {
             await fetch(url + `garage/${id}`, {
                 method: 'DELETE',
-            }).then((res) => res.json());
+            });
         } catch (error) {
             console.log(error);
         }
@@ -71,11 +81,39 @@ class Garage {
         }
     }
 
-    async startStopCar(url: string, id: string, status: string) {
+    async startCar(url: string, id: string, status: string) {
+        try {
+            const response = await fetch(url + `engine?id=${id}&status=${status}`, {
+                method: 'PATCH',
+            });
+            const driveParams = (await response.json()) || [];
+            const time = driveParams.distance / driveParams.velocity;
+            return time;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async stopCar(url: string, id: string, status: string) {
         try {
             await fetch(url + `engine?id=${id}&status=${status}`, {
                 method: 'PATCH',
             });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async driveCar(url: string, id: string, status = 'drive') {
+        try {
+            const response = await fetch(url + `engine?id=${id}&status=${status}`, {
+                method: 'PATCH',
+            });
+            if (response.status === 500) {
+                console.log(`The engine of car#${id} is broken`);
+                return false;
+            }
+            return (await response.json()).success;
         } catch (error) {
             console.log(error);
         }
