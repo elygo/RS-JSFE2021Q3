@@ -18,14 +18,24 @@
 			<div class="slides">
 				<section>
 					<h2>Heroku</h2>
-					<p>Presented by <a href="">Elyor Farmonov</a></p>
-					<p>Supervised by <a href="">Said Akhmed Agitaev</a></p>
+					<br>
+					<hr>
+					<br><br><small>Presented by <a href="">Elyor Farmonov</a></small>
+					<br><small>Supervised by <a href="">Said Akhmed Agitaev</a></small>
+					<aside class="notes">Tell about yourself a bit and why this topic is chosen</aside>
+				</section>
+				<section>
+					<h2>History of Heroku</h2>
+					<p>Orion Henry, James Lindenbaum and Adam Wiggins</p>
+					<p>for supporting projects that are based on Ruby - <span style="color: #79589f;">2007</span></p>
+					<img src="./assets/heroku-team.jpg" alt="heroku-team">
+					<p class="fragment">The company was acquired by Salesforce in <span style="color: #79589f;">2011</span> <br>(212 mln.USD).</p>					
 					<aside class="notes">Tell about yourself a bit and why this topic is chosen</aside>
 				</section>
 				<section>
 					<section>
 						<h2><span style="color: #000;">What is </span>HEROKU<span style="color: #000;">?</span></h2>
-						<p class="fragment">"Heroku is a cloud <span style="color: #79589f;">platform</span> that lets companies build, deliver, monitor and scale apps — we're the fastest way to go from idea to URL, bypassing all those infrastructure headaches." - <em>Authors</em></p>
+						<p class="fragment">"Heroku is a cloud <span style="color: #79589f;">platform</span> that lets companies <em style="color: #79589f;">build, deliver, monitor</em> and <em style="color: #79589f;">scale</em> apps — we're the fastest way to go from idea to URL, bypassing all those infrastructure headaches." - <em>Authors</em></p>
 						<aside class="notes">Platform?</aside>
 					</section>
 					<section>
@@ -52,9 +62,20 @@
 				<section>
 					<section>
 						<h2>Advantages</h2>
+						<ul>
+							<li class="fragment">Free to start</li>
+							<li class="fragment">Multiple languages (NodeJS, PHP, Ruby, etc.)</li>
+							<li class="fragment">Easy to use (Never think about servers)</li>
+							<li class="fragment">Easy to scale relies on <span style="color: #79589f;">Dynos</span></li>
+							<li class="fragment">Stable (backed by AWS and operations' experts)</li>
+						</ul>
 					</section>
 					<section>
-						<h2>Slide 2.2</h2>
+						<h2>Dynos</h2>
+						<p class="fragment">The Heroku Platform uses the container model to run and scale all Heroku apps.</p>
+						<p class="fragment">A dyno is a linux container used at Heroku.</p>						
+						<p class="fragment"><span style="color: #79589f;">"Dyno"</span> is the term Heroku uses for its web servers.</p>
+						<img class="fragment" src="./assets/dynos.PNG" alt="dyno-price">
 					</section>
 					<aside class="notes">Slide 2</aside>
 				</section>
@@ -64,16 +85,25 @@
 				</section>
 				<section>
 					<h2>Deployment</h2>
-					<small>1. Create an account at Heroku</small>
-					<small>2. Install the Heroku CLI <a href="https://devcenter.heroku.com/articles/heroku-cli">https://devcenter.heroku.com/articles/heroku-cli</a></small>
-					<small>3. Navigate to your folder</small>
-					<small>3.1. Login</small>
-					<code>heroku login</code>
-					<small>3.2. Create a web app RS-Lang</small>
-					<code>heroku create RS-Lang</code>
-					<small>3.1. Login</small>
-					<pre><code>heroku login</code></pre>
+					<ol>
+						<li class="fragment">Create an account at Heroku</li>
+						<li class="fragment">Install the Heroku CLI <a href="https://devcenter.heroku.com/articles/heroku-cli">https://devcenter.heroku.com/articles/heroku-cli</a></li>
+						<li class="fragment">Navigate to your folder</li>
+						<li class="fragment">Login to the Heroku CLI
+							<br><span><code style="color: #79589f;">$ heroku login</code></span>
+						</li>
+						<li class="fragment">Create an app on Heroku
+							<br><span><code style="color: #79589f;">$ heroku create</code></span>
+						</li>
+						<li class="fragment">Deploy the code to Heroku 
+							<br><span><code style="color: #79589f;">$ git push heroku main</code></span>
+						</li>
+					</ol>
 					<aside class="notes">Ok, deploy it!</aside>
+				</section>
+				<section>
+					<h2>Thanks for your attention!</h2>
+					<p class="fragment">Questions?</p>
 				</section>
 			</div>
 		</div>
