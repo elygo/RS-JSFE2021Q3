@@ -17,77 +17,155 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h2>Heroku</h2>
+					<h1>
+						<img src="./assets/logo.png" style="width: 70px; height: 70px; margin: 0; vertical-align: baseline;" alt="">
+						Heroku
+					</h1>
 					<br>
 					<hr>
 					<br><br><small>Presented by <a href="">Elyor Farmonov</a></small>
 					<br><small>Supervised by <a href="">Said Akhmed Agitaev</a></small>
-					<aside class="notes">Tell about yourself a bit and why this topic is chosen</aside>
-				</section>
-				<section>
-					<h2>History of Heroku</h2>
-					<p>Orion Henry, James Lindenbaum and Adam Wiggins</p>
-					<p>for supporting projects that are based on Ruby - <span style="color: #79589f;">2007</span></p>
-					<img src="./assets/heroku-team.jpg" alt="heroku-team">
-					<p class="fragment">The company was acquired by Salesforce in <span style="color: #79589f;">2011</span> <br>(212 mln.USD).</p>					
-					<aside class="notes">Tell about yourself a bit and why this topic is chosen</aside>
+					<aside class="notes">Tell about yourself a bit
+						<br>This topic was chosen due to the fact that the upcoming RS-Lang is backend part and I thought it would be useful to present about it.
+					</aside>
 				</section>
 				<section>
 					<section>
-						<h2><span style="color: #000;">What is </span>HEROKU<span style="color: #000;">?</span></h2>
-						<p class="fragment">"Heroku is a cloud <span style="color: #79589f;">platform</span> that lets companies <em style="color: #79589f;">build, deliver, monitor</em> and <em style="color: #79589f;">scale</em> apps — we're the fastest way to go from idea to URL, bypassing all those infrastructure headaches." - <em>Authors</em></p>
-						<aside class="notes">Platform?</aside>
+						<h3>The history of Heroku</h3>
+						<p>Founded in San Francisco in <span style="color: #79589f;">2007</span></p>
+						<p>Orion Henry, James Lindenbaum and Adam Wiggins</p>
+						<div style="position: relative;">
+							<img src="./assets/heroku-team.jpg" alt="heroku-team">
+							<span class="source" style="bottom: 40px; left: 230px;">Source: https://thenextweb.com/</span>
+						</div>
+						<p>for supporting projects that are based on Ruby</p>
+						
+						<aside class="notes">Heroku was one of the most revolutionary products of its generation, one of the first real cloud-native development environments
+							<br>“The thing that blew people’s mind was the Git push to deploy, which is the core idea people take away from Heroku” said Lindenbaum
+						</aside>
 					</section>
 					<section>
-						<h2>about Iaas, PaaS</h2>
-						<img src="./assets/services-architecture.png" alt="Comparsion of services">
-						<aside class="notes">Give cooking as an example</aside>
+						<h3>The history of Heroku (cont'd)</h3>
+						<p class="fragment">The company was acquired by Salesforce in <span style="color: #79589f;">2011</span></p>
+						<p class="fragment">Salesforce paid <span style="color: #79589f;">212 mln USD</span> for a company with only <br>30 people on staff and supported only Ruby</p>
+						<hr class="fragment">
+						<p class="fragment">Now, none of the original cofounders are still at Heroku.</p>
+						<p class="fragment">According to experts (Tod Nielsen, Blake Mizerany) Heroku is <span style="color: #79589f;">technologically stagnated.</span></p>
+						<aside class="notes">
+							In competetion with VMware, Salesforce bought the company as a wholly owned subsidiary of Salesforce.com
+							<br>I'll tell you a bit more the downsides of Heroku later
+						</aside>
 					</section>
+				</section>
+				<section>
 					<section>
-						<h2>Service providers</h2>
-						<img src="./assets/services-examples.png" alt="Examples">
-						<aside class="notes">Examples</aside>
-					</section>
-					<section>
-						<h3>Pizza as a Service</h3>
-						<img src="./assets/services-pizza.png" alt="Examples">
-						<aside class="notes">Pizza as a service</aside>
+						<h3><span style="color: #000;">What is </span>HEROKU<span style="color: #000;">?</span></h3>
+						<p class="fragment">"Heroku is a cloud <span style="color: #79589f;">platform</span> that lets companies <em style="color: #79589f;">build, deliver, monitor</em> and <em style="color: #79589f;">scale</em> apps — we're the fastest way to go from idea to URL, bypassing all those infrastructure headaches." - <em>Authors</em></p>												
+						<div class="fragment" style="position: relative;">
+							<img src="./assets/data.PNG" style="margin: 0;">						
+							<span class="source" style="bottom: 10px; left: 30px;">Source: https://www.heroku.com/</span>
+						</div>
+						<aside class="notes">It takes care of all of the behind the scenes stuff for you as simple as possible!
+							<br>Tell more about data
+						</aside>
 					</section>
 					<section>
 						<h3>IT architecture without Heroku</h3>
-						<img src="./assets/without-heroku.png" alt="Examples">
-						<aside class="notes">without heroku</aside>
+						<div style="position: relative;">
+							<img src="./assets/without-heroku.png" alt="Examples">					
+							<span class="source" style="bottom: 10px; left: 30px;">Source: https://www.medium.com/heroku/the-easiest...</span>
+						</div>
+						<aside class="notes">As it stated it is indeed the fastest way to go from idea to URL
+							<br>The stated 8 steps will be behind when you push your code to heroku master branch
+						</aside>
+					</section>					
+					<section>
+						<h3>Pizza service</h3>
+						<div style="position: relative;">
+							<img src="./assets/services-pizza.png" alt="Pizza example">							
+							<span class="source" style="bottom: 40px; left: 30px;">Source: https://www.develux.com/</span>
+						</div>
+						<aside class="notes">Cloud-based models such as IaaS PaaS SaaS can offer convenience and ease of use. It allows to virtually manage infrastructure and provide flexibility.</aside>
+					</section>
+					<section>
+						<h3>Comparison of Services</h3>
+						<div style="position: relative;">
+							<img src="./assets/services-architecture.png" alt="Comparsion of services">							
+							<span class="source" style="bottom: 40px; left: 30px;">Source: https://www.virtasant.com/</span>
+						</div>
+						<aside class="notes">The cloud is a hot topic from small to global businesses
+							<br>Though as-a-service types are growing by the day, there are usually three models of cloud service to compare
+							<br>IaaS - the most flexible cloud computing model
+						</aside>
+					</section>
+					<section>
+						<h3>Service providers</h3>
+						<div style="position: relative;">
+							<img src="./assets/services-examples.png" alt="Examples">
+							<span class="source" style="bottom: 40px; left: 30px;">Source: https://www.n-ix.com/</span>
+						</div>
+						<aside class="notes">You may ask where is Netlify (interesting from the point view of FE) for instance and what is the difference between them?
+							<br>Netlify is geared more towards frontend developers and is ideal for static websites, where as Heroku has a more robust and functional backend support.s
+							<br>That's why I try to compare it with Amazon Elastics
+						</aside>
+					</section>
+					<section>
+						<h3>Heroku <span style="color: #000; font-size: 2.5rem">vs.</span><span style="color: rgb(255, 136, 0);"> AWS Elastic Beanstalk</span></h3>
+						<div style="position: relative;">
+							<img src="./assets/compare_aws_heroku.jpg" alt="Compare aws vs. heroku">
+							<span class="source" style="bottom: 10px; left: 30px;">Source: https://www.techuz.com/</span>
+						</div>
+						<aside class="notes">
+							As it can be seen from the charts, 1st and last bars are different, and we can conclude that AWS is used more by big enterprises, while Heroku by small businesses.
+						</aside>
 					</section>
 				</section>
 				<section>
 					<section>
-						<h2>Advantages</h2>
+						<h3>Pros</h3>
 						<ul>
-							<li class="fragment">Free to start</li>
-							<li class="fragment">Multiple languages (NodeJS, PHP, Ruby, etc.)</li>
+							<li class="fragment">Free to start (the basic package)</li>
+							<li class="fragment">Multiple programming languages								
+								<img src="./assets/languages.PNG" alt="">
+							</li>
 							<li class="fragment">Easy to use (Never think about servers)</li>
-							<li class="fragment">Easy to scale relies on <span style="color: #79589f;">Dynos</span></li>
+							<li class="fragment">Easy to scale (relies on <span style="color: #79589f;">Dynos</span>)</li>
 							<li class="fragment">Stable (backed by AWS and operations' experts)</li>
+							<li class="fragment">No need for DevOps skills</li>
 						</ul>
+						<aside class="notes">It is possible with heroku, shipping a product quickly and with a little effort.
+							<br>Pick your chosen language, do not think about hardware.
+							<br>I highly recommend give a shot who never used it, it's perfect place to start your backend route.
+						</aside>
 					</section>
 					<section>
-						<h2>Dynos</h2>
+						<h3>Dynos</h3>
 						<p class="fragment">The Heroku Platform uses the container model to run and scale all Heroku apps.</p>
-						<p class="fragment">A dyno is a linux container used at Heroku.</p>						
-						<p class="fragment"><span style="color: #79589f;">"Dyno"</span> is the term Heroku uses for its web servers.</p>
+						<p class="fragment">A dyno is a virtual linux container used at Heroku.</p>						
 						<img class="fragment" src="./assets/dynos.PNG" alt="dyno-price">
+						<aside class="notes">Dyno is the term Heroku uses for its web servers. If your app scales, scales the number of dynos as well. Consequently, the price for the service changes too.</aside>
 					</section>
-					<aside class="notes">Slide 2</aside>
 				</section>
 				<section>
-					<h2>Slide 3</h2>
-					<aside class="notes">Slide 3</aside>
+					<h3>Cons</h3>
+					<ul>
+						<li class="fragment">Higher prices compared to other vendors</li>
+						<li class="fragment">If app is inactive 30 mins, they put it to sleep</li>
+						<img class="fragment" src="./assets/wait-what.jpg" alt="">
+						<li class="fragment">Architectural limitations for bigger applications</li>
+						<li class="fragment">The needed add-ons might be expensive</li>
+					</ul>
+					<aside class="notes">You can change your subscription from free to hobby $7 per dyno per month
+						<br>Up to 1000 dynos per month
+					</aside>
 				</section>
 				<section>
-					<h2>Deployment</h2>
+					<h3>Deployment</h3>
 					<ol>
 						<li class="fragment">Create an account at Heroku</li>
-						<li class="fragment">Install the Heroku CLI <a href="https://devcenter.heroku.com/articles/heroku-cli">https://devcenter.heroku.com/articles/heroku-cli</a></li>
+						<li class="fragment">Install the <a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI (from devcenter)</a>
+							<br><span><code style="color: #79589f;">$ npm install -g heroku</code></span>
+						</li>
 						<li class="fragment">Navigate to your folder</li>
 						<li class="fragment">Login to the Heroku CLI
 							<br><span><code style="color: #79589f;">$ heroku login</code></span>
